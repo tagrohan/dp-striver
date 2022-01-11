@@ -6,10 +6,33 @@ import java.util.List;
 
 public class RecClass {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(getSubsequence("abc").toArray()));
+        System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
     }
 
+
+    private static List<String> getMazePath(int xStart, int yStart, int xEnd, int yEnd) {
+//        System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
+        if (xStart > xEnd || yStart > yEnd) return List.of();
+        if (xStart == xEnd && yStart == yEnd) return List.of("");
+
+
+        List<String> horizontal = getMazePath(xStart, yStart + 1, xEnd, yEnd);
+        List<String> vertical = getMazePath(xStart + 1, yStart, xEnd, yEnd);
+        List<String> tempPath = new ArrayList<>();
+
+        for (String h : horizontal) {
+            tempPath.add("H " + h);
+        }
+        for (String v : vertical) {
+            tempPath.add("V " + v);
+        }
+        return tempPath;
+
+    }
+
+    // did it by myself, good medium level question
     private static List<String> getSubsequence(String str) {
+//        System.out.println(Arrays.toString(getSubsequence("abc").toArray()));
         if (str.length() == 0) {
             return List.of("");
         }
