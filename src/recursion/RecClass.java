@@ -6,7 +6,18 @@ import java.util.List;
 
 public class RecClass {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(getMazePath(1, 1, 3, 3).toArray()));
+        subsetSum(new int[]{1, 2, 3, 4, 5, 6}, 0, 7, 0, "");
+    }
+
+    private static void subsetSum(int[] arr, int idx, int target, int current, String psf) {
+        if (idx >= arr.length || target < 0) return;
+        if (target == 0) {
+            System.out.println(psf);
+            return;
+        }
+
+        subsetSum(arr, idx + 1, target - arr[idx], current, arr[idx] + " " + psf);
+        subsetSum(arr, idx + 1, target, current, psf);
     }
 
 
