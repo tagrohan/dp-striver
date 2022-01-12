@@ -10,13 +10,13 @@ public class RecClass {
     }
 
     private static void subsetSum(int[] arr, int idx, int target, int current, String psf) {
-        if (idx >= arr.length || target < 0) return;
-        if (target == 0) {
+        if (idx >= arr.length) return;
+        if (target == current) {
             System.out.println(psf);
             return;
         }
 
-        subsetSum(arr, idx + 1, target - arr[idx], current, arr[idx] + " " + psf);
+        subsetSum(arr, idx + 1, target, current + arr[idx], arr[idx] + " " + psf);
         subsetSum(arr, idx + 1, target, current, psf);
     }
 
