@@ -1,7 +1,6 @@
 package recursion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecClass {
@@ -9,7 +8,10 @@ public class RecClass {
         subsetSum(new int[]{1, 2, 3, 4, 5, 6}, 0, 7, 0, "");
     }
 
+
+
     private static void subsetSum(int[] arr, int idx, int target, int current, String psf) {
+//        subsetSum(new int[]{1, 2, 3, 4, 5, 6}, 0, 7, 0, "");
         if (idx >= arr.length) return;
         if (target == current) {
             System.out.println(psf);
