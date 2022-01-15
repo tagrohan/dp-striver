@@ -1,13 +1,42 @@
 package recursion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecClass {
     public static void main(String[] args) {
-        subsetSum(new int[]{1, 2, 3, 4, 5, 6}, 0, 7, 0, "");
+        printSubsequence("abc", 0, new ArrayList<>());
     }
 
+    private static void printSubsequence(String str, int index, List<Character> list) {
+//        printSubsequence("abc", 0, new ArrayList<>());
+        if (str.length() == index) {
+            System.out.println(Arrays.toString(list.toArray()));
+            return;
+        }
+        list.add(str.charAt(index));
+        printSubsequence(str, index + 1, list);
+        list.remove(list.size() - 1);
+        printSubsequence(str, index + 1, list);
+    }
+
+    static int min = Integer.MAX_VALUE;
+
+    private static void minEnergyForFrog(int[] arr, int index, int energy) {
+//        minEnergyForFrog(new int[]{10, 20, 30, 10}, 0, 0);
+//        System.out.println(min);
+        if (index >= arr.length) return;
+        if (index == arr.length - 1) {
+            System.out.println(energy + "-------->");
+            min = Integer.min(min, energy);
+            return;
+        }
+
+
+        minEnergyForFrog(arr, index + 1, Math.abs(arr[index] - energy));
+        minEnergyForFrog(arr, index + 2, Math.abs(arr[index] - energy));
+    }
 
 
     private static void subsetSum(int[] arr, int idx, int target, int current, String psf) {
