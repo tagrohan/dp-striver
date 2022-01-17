@@ -6,7 +6,20 @@ import java.util.List;
 
 public class RecClass {
     public static void main(String[] args) {
-        printSubsequence("abc", 0, new ArrayList<>());
+
+    }
+
+
+    private static void printSubsequence(String str, String psf) {
+//        printSubsequence("abc", "");
+        if (str.isBlank()) {
+            System.out.print(psf + ", ");
+            return;
+        }
+
+        char ch = str.charAt(0);
+        printSubsequence(str.substring(1), psf);
+        printSubsequence(str.substring(1), ch + psf);
     }
 
     private static void printSubsequence(String str, int index, List<Character> list) {
