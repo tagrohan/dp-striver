@@ -6,13 +6,17 @@ import java.util.List;
 
 public class RecClass {
     public static void main(String[] args) {
-
+        printSubsequence("abc", "");
     }
 
 
     private static void printSubsequence(String str, String psf) {
 //        printSubsequence("abc", "");
-        if (str.isBlank()) {
+//        if (str.isBlank()) { // not available in java - 8
+//            System.out.print(psf + ", ");
+//            return;
+//        }
+        if (str.length() == 0) {
             System.out.print(psf + ", ");
             return;
         }
