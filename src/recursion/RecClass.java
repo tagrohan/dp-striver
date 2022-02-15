@@ -6,7 +6,15 @@ import java.util.List;
 
 public class RecClass {
     public static void main(String[] args) {
-        printSubsequence("abc", "");
+
+    }
+
+    private static int powerV(int num1, int num2) {
+//        System.out.println(powerV(2, 4));
+        if (num2 == 0) {
+            return 1;
+        }
+        return num1 * powerV(num1, num2 - 1);
     }
 
 
