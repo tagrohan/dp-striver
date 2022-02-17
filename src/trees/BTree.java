@@ -19,7 +19,7 @@ public class BTree {
         r1.right = r2;
         r1.left = l3;
 //        r2.right = r3;
-        System.out.println(heightOfTree(root, 0));
+
 //            0
 //        /      \
 //     1            1
@@ -29,9 +29,21 @@ public class BTree {
 //                        3
 
 //        heightOfTree();
+        System.out.println(heightOfTreeV2(root));
+    }
+
+    private static int heightOfTreeV2(Node root) {
+//        System.out.println(heightOfTreeV2(root));
+        if (root == null) {
+            return 0;
+        }
+        int left = heightOfTreeV2(root.left);
+        int right = heightOfTreeV2(root.right);
+        return 1 + Math.max(left, right);
     }
 
     private static int heightOfTree(Node root, int height) {
+//        System.out.println(heightOfTree(root, 0));
         if (root == null) return height;
         return Math.max(heightOfTree(root.left, height + 1), heightOfTree(root.right, height + 1));
     }
