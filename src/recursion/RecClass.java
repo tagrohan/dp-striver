@@ -6,8 +6,43 @@ import java.util.List;
 
 public class RecClass {
     public static void main(String[] args) {
-
+//        int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
+//        sortArray(arr, 0);
+//        System.out.println(Arrays.toString(arr));
+        int[] arr2 = new int[]{0, 1, 0,1};
+        sort0and1(1, arr2);
+        System.out.println(Arrays.toString(arr2));
     }
+
+    public static void sort0and1(int n, int[] arr) {
+        // using swapping technique
+        int one = 0;
+        int zero = arr.length - 1;
+
+        while (one < zero) {
+            if (arr[one] == 0) {
+                one++;
+            }
+            if (arr[zero] == 1) {
+                zero--;
+            }
+            if (arr[one] == 1 && arr[zero] == 0) {
+                int temp = arr[one];
+                arr[one++] = arr[zero];
+                arr[zero--] = temp;
+            }
+        }
+    }
+
+
+    private static void sortArray(int[] arr, int index) {
+        if (arr.length == index) {
+            return;
+        }
+
+        sortArray(arr, index + 1);
+    }
+
 
     private static int powerV(int num1, int num2) {
 //        System.out.println(powerV(2, 4));
