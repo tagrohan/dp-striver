@@ -7,13 +7,38 @@ import java.util.List;
 public class RecClass {
     public static void main(String[] args) {
         int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
-        sortAnArray(arr, 0);
+        sortAnArray(arr, 6);
         System.out.println(Arrays.toString(arr));
     }
 
-    private static void sortAnArray(int[] arr, int index) {
+    private static void sortAnArray(int[] arr, int noOfElements) {
+//        int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
+//        sortAnArray(arr, 6);
+//        System.out.println(Arrays.toString(arr));
+        if (noOfElements == -1) return;
+        int maxIndex = getMaxIndex(arr, noOfElements);
+        swapping(arr, maxIndex, noOfElements);
+        sortAnArray(arr, noOfElements - 1);
 
     }
+
+    private static void swapping(int[] arr, int maxIndex, int noOfElements) {
+        int temp = arr[maxIndex];
+        arr[maxIndex] = arr[noOfElements];
+        arr[noOfElements] = temp;
+    }
+
+    private static int getMaxIndex(int[] arr, int range) {
+        int max = arr[0], returnIndex = 0;
+        for (int i = 0; i <= range; i++) {
+            if (max < arr[i]) {
+                max = arr[i];
+                returnIndex = i;
+            }
+        }
+        return returnIndex;
+    }
+
 
     private static void reverseAnArray(int[] arr, int index) {
 
