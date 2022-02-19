@@ -6,15 +6,33 @@ import java.util.List;
 
 public class RecClass {
     public static void main(String[] args) {
-//        int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
-//        sortArray(arr, 0);
-//        System.out.println(Arrays.toString(arr));
-        int[] arr2 = new int[]{0, 1, 0,1};
-        sort0and1(1, arr2);
-        System.out.println(Arrays.toString(arr2));
+        int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
+        sortAnArray(arr, 0);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    private static void sortAnArray(int[] arr, int index) {
+
+    }
+
+    private static void reverseAnArray(int[] arr, int index) {
+
+//        int[] arr2 = new int[]{4, 3, 2, 1};
+//        reverseAnArray(arr2, 0);
+//        System.out.println(Arrays.toString(arr2));
+        if (arr.length == index) {
+            return;
+        }
+        int val = arr[index];
+        reverseAnArray(arr, index + 1);
+        arr[arr.length - index - 1] = val; // -1 to play around with index
     }
 
     public static void sort0and1(int n, int[] arr) {
+
+//        int[] arr2 = new int[]{0, 1, 0,1};
+//        sort0and1(1, arr2);
+//        System.out.println(Arrays.toString(arr2));
         // using swapping technique
         int one = 0;
         int zero = arr.length - 1;
@@ -32,15 +50,6 @@ public class RecClass {
                 arr[zero--] = temp;
             }
         }
-    }
-
-
-    private static void sortArray(int[] arr, int index) {
-        if (arr.length == index) {
-            return;
-        }
-
-        sortArray(arr, index + 1);
     }
 
 
