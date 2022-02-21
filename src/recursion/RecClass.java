@@ -3,13 +3,44 @@ package recursion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class RecClass {
     public static void main(String[] args) {
         int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
-        sortAnArray(arr, 6);
-        System.out.println(Arrays.toString(arr));
+        Stack<Integer> stack = new Stack<>();
+        for (int i : arr) {
+            stack.push(i);
+        }
+        sortAnStack(stack);
+        stack.forEach(System.out::print);
     }
+
+
+    private static void sortAnStack(Stack<Integer> stack) {
+//        int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
+//        Stack<Integer> stack = new Stack<>();
+//        for (int i : arr) {
+//            stack.push(i);
+//        }
+//        sortAnStack(stack);
+//        stack.forEach(System.out::print);
+        if (stack.size() == 0) return;
+        int peek = stack.pop();
+        sortAnStack(stack);
+        placeOnTheRightPosition(stack, peek);
+    }
+
+    private static void placeOnTheRightPosition(Stack<Integer> stack, int peek) {
+        if (stack.size() == 0 || stack.peek() <= peek) {
+            stack.push(peek);
+            return;
+        }
+        int removingElement = stack.pop();
+        placeOnTheRightPosition(stack, peek);
+        stack.push(removingElement);
+    }
+
 
     private static void sortAnArray(int[] arr, int noOfElements) {
 //        int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
