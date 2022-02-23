@@ -12,8 +12,19 @@ public class RecClass {
         for (int i : arr) {
             stack.push(i);
         }
-        sortAnStack(stack);
+        removeMiddle(stack, (stack.size() / 2 + 1));
         stack.forEach(System.out::print);
+    }
+
+    private static void removeMiddle(Stack<Integer> stack, int middle) {
+//        removeMiddle(stack, (stack.size() / 2 + 1));
+        if (stack.size() <= middle) {
+            stack.pop();
+            return;
+        }
+        int var = stack.pop();
+        removeMiddle(stack, middle);
+        stack.push(var);
     }
 
 
