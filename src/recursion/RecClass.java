@@ -12,8 +12,26 @@ public class RecClass {
         for (int i : arr) {
             stack.push(i);
         }
-        removeMiddle(stack, (stack.size() / 2 + 1));
+        reverseAStack(stack);
         stack.forEach(System.out::print);
+    }
+
+    private static void reverseAStack(Stack<Integer> stack) {
+        if (stack.isEmpty()) return;
+
+        int var = stack.pop();
+        reverseAStack(stack);
+        internalReverse(stack, var);
+    }
+
+    private static void internalReverse(Stack<Integer> stack, int var) {
+        if (stack.isEmpty()) {
+            stack.push(var);
+            return;
+        }
+        int varHolder = stack.pop();
+        internalReverse(stack, var);
+        stack.push(varHolder);
     }
 
     private static void removeMiddle(Stack<Integer> stack, int middle) {
