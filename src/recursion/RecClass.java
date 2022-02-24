@@ -16,6 +16,11 @@ public class RecClass {
         stack.forEach(System.out::print);
     }
 
+    // todo find kth grammer
+    private static void kthGrammer(int n, int k) {
+        
+    }
+    
     private static void reverseAStack(Stack<Integer> stack) {
         if (stack.isEmpty()) return;
 
