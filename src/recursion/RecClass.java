@@ -9,12 +9,6 @@ public class RecClass {
    public static void main(String[] args) {
    }
 
-
-
-
-
-
-
    private static void reverseAStack(Stack<Integer> stack) {
 //        int[] arr = new int[]{3, 4, 2, 1, 6, 1, 0};
 //        Stack<Integer> stack = new Stack<>();
