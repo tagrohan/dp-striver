@@ -7,6 +7,34 @@ import java.util.Stack;
 
 public class RecClass {
    public static void main(String[] args) {
+      fluidFill(new int[][]{
+           {0, 1, 0, 0},
+           {0, 0, 0, 0},
+           {1, 0, 1, 0},
+           {1, 0, 0, 0},
+      }, 0, 0, 3, 3, new int[4][4], "");
+   }
+
+
+   private static void fluidFill(int[][] arr, int startRow, int startCol, int endRow, int endCol, int[][] dp, String psf) {
+//      fluidFill(new int[][]{
+//           {0, 1, 0, 0},
+//           {0, 0, 0, 0},
+//           {1, 0, 1, 0},
+//           {1, 0, 0, 0},
+//      }, 0, 0, 3, 3, new int[4][4], "");
+      if (startRow < 0 || startCol < 0 || startRow > endRow || startCol > endCol || arr[startRow][startCol] == 1 || dp[startRow][startCol] == 1) return;
+      if (startRow == endRow && startCol == endCol) {
+         System.out.println(psf);
+         return;
+      }
+
+      dp[startRow][startCol] = 1;
+      fluidFill(arr, startRow - 1, startCol, endRow, endCol, dp, psf + "U ");
+      fluidFill(arr, startRow, startCol + 1, endRow, endCol, dp, psf + "R ");
+      fluidFill(arr, startRow + 1, startCol, endRow, endCol, dp, psf + "D ");
+      fluidFill(arr, startRow, startCol - 1, endRow, endCol, dp, psf + "L ");
+      dp[startRow][startCol] = 0;
    }
 
    private static void reverseAStack(Stack<Integer> stack) {
