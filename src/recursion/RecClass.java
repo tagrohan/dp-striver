@@ -7,12 +7,26 @@ import java.util.Stack;
 
 public class RecClass {
    public static void main(String[] args) {
-      towerOfHanoi(1, 3, 2, 3);
+      UniqueSubset("aaab", "");
+   }
+
+   private static void UniqueSubset(String str, String ssf) {
+
+   }
+
+   private static void subset(String str, String ssf) {
+//      subset("cba", "");
+      if (str.length() <= 0) {
+         System.out.print(ssf + ", ");
+         return;
+      }
+      subset(str.substring(1), ssf + str.charAt(0));
+      subset(str.substring(1), ssf);
    }
 
    private static void towerOfHanoi(int s, int d, int h, int n) {
 //      towerOfHanoi(1, 3, 2, 3);
-      if (n == 1) {gi
+      if (n == 1) {
          System.out.println(s + " " + d);
          return;
       }
