@@ -1,17 +1,27 @@
 package recursion;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class RecClass {
    public static void main(String[] args) {
-      UniqueSubset("aaab", "");
+      Set<String> set = new LinkedHashSet<>();
+      uniqueSubset("aaab", "", set);
+      set.forEach(str -> System.out.print(str + ", "));
    }
 
-   private static void UniqueSubset(String str, String ssf) {
+   private static void uniqueSubset(String str, String ssf, Set<String> set) {
+//      Set<String> set = new LinkedHashSet<>();
+//      uniqueSubset("aaab", "", set);
+//      set.forEach(str ->{
+//         System.out.print(str + ", ");
+//      });
+      if (str.length() <= 0) {
+         set.add(ssf);
+         return;
+      }
 
+      uniqueSubset(str.substring(1), ssf + str.charAt(0), set);
+      uniqueSubset(str.substring(1), ssf, set);
    }
 
    private static void subset(String str, String ssf) {
