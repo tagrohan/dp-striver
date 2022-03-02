@@ -7,12 +7,33 @@ import java.util.Stack;
 
 public class RecClass {
    public static void main(String[] args) {
-      fluidFill(new int[][]{
-           {0, 1, 0, 0},
-           {0, 0, 0, 0},
-           {1, 0, 1, 0},
-           {1, 0, 0, 0},
-      }, 0, 0, 3, 3, new int[4][4], "");
+      towerOfHanoi(1, 3, 2, 3);
+   }
+
+   private static void towerOfHanoi(int s, int d, int h, int n) {
+//      towerOfHanoi(1, 3, 2, 3);
+      if (n == 1) {gi
+         System.out.println(s + " " + d);
+         return;
+      }
+      towerOfHanoi(s, h, d, n - 1);
+      System.out.println(s + " " + d);
+      towerOfHanoi(h, d, s, n - 1);
+   }
+
+
+   // todo not working properly
+   private static int findKthGrammar(int n, int k) {
+//      System.out.println(findKthGrammar(4, 2));
+      if (n == 1) {
+         return 0;
+      }
+      int mid = (int) Math.pow(2, n - 1) / 2;
+      if (k < mid) {
+         return findKthGrammar(n - 1, k);
+      } else {
+         return findKthGrammar(n - 1, k - mid);
+      }
    }
 
 
@@ -23,7 +44,8 @@ public class RecClass {
 //           {1, 0, 1, 0},
 //           {1, 0, 0, 0},
 //      }, 0, 0, 3, 3, new int[4][4], "");
-      if (startRow < 0 || startCol < 0 || startRow > endRow || startCol > endCol || arr[startRow][startCol] == 1 || dp[startRow][startCol] == 1) return;
+      if (startRow < 0 || startCol < 0 || startRow > endRow || startCol > endCol || arr[startRow][startCol] == 1 || dp[startRow][startCol] == 1)
+         return;
       if (startRow == endRow && startCol == endCol) {
          System.out.println(psf);
          return;
