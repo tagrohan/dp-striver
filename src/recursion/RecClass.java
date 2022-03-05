@@ -4,14 +4,18 @@ import java.util.*;
 
 public class RecClass {
    public static void main(String[] args) {
-      addingSpacesInBetween("abc", "");
+      addingSpacesInBetweenV2("abc");
+   }
+
+   private static void addingSpacesInBetweenV2(String str) {
+
    }
 
    //abc = a_b_c,ab_c,a_bc,abc
-   private static void addingSpacesInBetween(String str, String ssf) {
+   private static void addingSpacesInBetween(String str) {
       if (str.isBlank()) return;
       // required a helper as we have a problem with -A in beginning
-      addingSpacesInBetweenHelper(str.substring(1), ssf, str.charAt(0));
+      addingSpacesInBetweenHelper(str.substring(1), "", str.charAt(0));
    }
 
    private static void addingSpacesInBetweenHelper(String str, String ssf, char first) {
