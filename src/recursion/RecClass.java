@@ -4,15 +4,28 @@ import java.util.*;
 
 public class RecClass {
    public static void main(String[] args) {
-      addingSpacesInBetweenV2("abc");
+      String str = "abc";
+      addingSpacesInBetweenV3(str.substring(1), String.valueOf(str.charAt(0)));
+   }
+
+   private static void addingSpacesInBetweenV3(String str, String ssf) {
+//      String str = "abc";
+//      addingSpacesInBetweenV3(str.substring(1), String.valueOf(str.charAt(0)));
+      if (str.length() == 0) {
+         System.out.println(ssf);
+         return;
+      }
+
+      addingSpacesInBetweenV3(str.substring(1), ssf + "_" + str.charAt(0));
+      addingSpacesInBetweenV3(str.substring(1), ssf + str.charAt(0));
    }
 
    private static void addingSpacesInBetweenV2(String str) {
 //      addingSpacesInBetweenV2("abc");
       if (str == null || str.isBlank()) return;
       List<String> combinations = new ArrayList<>();
-      addingSpacesInBetweenV2Helper(str.substring(1), "", combinations);
-      combinations.forEach(ele -> System.out.println(str.charAt(0) + ele));
+      addingSpacesInBetweenV2Helper(str.substring(1), String.valueOf(str.charAt(0)), combinations);
+      combinations.forEach(System.out::println);
    }
 
    private static void addingSpacesInBetweenV2Helper(String str, String ssf, List<String> combinations) {
