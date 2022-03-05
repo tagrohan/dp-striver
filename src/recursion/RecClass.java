@@ -4,8 +4,24 @@ import java.util.*;
 
 public class RecClass {
    public static void main(String[] args) {
-      String str = "abc";
-      permutationWithCaseChange(str, "");
+      String str = "a1B2";
+      permutationWithCaseChangeIncludingNumbers(str, "");
+   }
+
+   private static void permutationWithCaseChangeIncludingNumbers(String str, String ssf) {
+//      String str = "a1B2";
+//      permutationWithCaseChangeIncludingNumbers(str, "");
+      if (str.length() == 0) {
+         System.out.println(ssf);
+         return;
+      }
+
+      if (Character.isAlphabetic(str.charAt(0))) {
+         permutationWithCaseChangeIncludingNumbers(str.substring(1), ssf + String.valueOf(str.charAt(0)).toUpperCase(Locale.ROOT));
+         permutationWithCaseChangeIncludingNumbers(str.substring(1), ssf + String.valueOf(str.charAt(0)).toLowerCase(Locale.ROOT));
+      } else {
+         permutationWithCaseChangeIncludingNumbers(str.substring(1), ssf + str.charAt(0));
+      }
    }
 
    // ab -> aB,Ab, ab,AB
