@@ -8,7 +8,21 @@ public class RecClass {
    }
 
    private static void addingSpacesInBetweenV2(String str) {
+//      addingSpacesInBetweenV2("abc");
+      if (str == null || str.isBlank()) return;
+      List<String> combinations = new ArrayList<>();
+      addingSpacesInBetweenV2Helper(str.substring(1), "", combinations);
+      combinations.forEach(ele -> System.out.println(str.charAt(0) + ele));
+   }
 
+   private static void addingSpacesInBetweenV2Helper(String str, String ssf, List<String> combinations) {
+      if (str.length() <= 0) {
+         combinations.add(ssf);
+         return;
+      }
+
+      addingSpacesInBetweenV2Helper(str.substring(1), ssf + "_" + str.charAt(0), combinations);
+      addingSpacesInBetweenV2Helper(str.substring(1), ssf + str.charAt(0), combinations);
    }
 
    //abc = a_b_c,ab_c,a_bc,abc
