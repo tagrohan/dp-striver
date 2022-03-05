@@ -4,11 +4,33 @@ import java.util.*;
 
 public class RecClass {
    public static void main(String[] args) {
-      List<String> list = generateParenthesis(3);
+      List<String> list = generateBinary(3);
       list.forEach(System.out::println);
+
+   }
+
+   private static List<String> generateBinary(int num) {
+      List<String> list = new ArrayList<>();
+      generateBinaryHelper(0, 0, list, "", num);
+      return list;
+   }
+
+   // condition is 1's should be >= 0'2, ex for 3 - 111, 110, 101
+   private static void generateBinaryHelper(int ones, int zeros, List<String> list, String psf, int num) {
+      if (num < 0) return;
+      if (num == 0) {
+         list.add(psf);
+         return;
+      }
+
+      generateBinaryHelper(ones + 1, zeros, list, psf + 1, num - 1);
+      if (ones > zeros) generateBinaryHelper(ones, zeros + 1, list, psf + 0, num - 1);
    }
 
    private static List<String> generateParenthesis(int num) {
+//      List<String> list = generateParenthesis(3);
+//     list.forEach(System.out::println);
+//      generateParenthesis(3).forEach(System.out::println);
       List<String> list = new ArrayList<>();
       generateParenthesisHelper(num, num, "", list);
       return list;
