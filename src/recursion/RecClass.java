@@ -5,7 +5,19 @@ import java.util.*;
 public class RecClass {
    public static void main(String[] args) {
       String str = "abc";
-      addingSpacesInBetweenV3(str.substring(1), String.valueOf(str.charAt(0)));
+      permutationWithCaseChange(str, "");
+   }
+
+   // ab -> aB,Ab, ab,AB
+   private static void permutationWithCaseChange(String str, String ssf) {
+//      permutationWithCaseChange(abc, "");
+      if (str.length() == 0) {
+         System.out.println(ssf);
+         return;
+      }
+
+      permutationWithCaseChange(str.substring(1), ssf + String.valueOf(str.charAt(0)).toUpperCase(Locale.ROOT));
+      permutationWithCaseChange(str.substring(1), ssf + str.charAt(0));
    }
 
    private static void addingSpacesInBetweenV3(String str, String ssf) {
