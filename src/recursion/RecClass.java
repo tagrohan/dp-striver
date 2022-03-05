@@ -4,8 +4,28 @@ import java.util.*;
 
 public class RecClass {
    public static void main(String[] args) {
-      String str = "a1B2";
-      permutationWithCaseChangeIncludingNumbers(str, "");
+      List<String> list = generateParenthesis(3);
+      list.forEach(System.out::println);
+   }
+
+   private static List<String> generateParenthesis(int num) {
+      List<String> list = new ArrayList<>();
+      generateParenthesisHelper(num, num, "", list);
+      return list;
+   }
+
+   private static void generateParenthesisHelper(int left, int right, String psf, List<String> list) {
+      if (left < 0 || right < 0) return;
+      if (left == 0 && right == 0) {
+         list.add(psf);
+         return;
+      }
+      if (left < right) {
+         generateParenthesisHelper(left - 1, right, psf + "(", list);
+         generateParenthesisHelper(left, right - 1, psf + ")", list);
+      } else {
+         generateParenthesisHelper(left - 1, right, psf + "(", list);
+      }
    }
 
    private static void permutationWithCaseChangeIncludingNumbers(String str, String ssf) {
