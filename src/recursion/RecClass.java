@@ -4,10 +4,27 @@ import java.util.*;
 
 public class RecClass {
    public static void main(String[] args) {
-      Set<String> set = new LinkedHashSet<>();
-      uniqueSubset("aaab", "", set);
-      set.forEach(str -> System.out.print(str + ", "));
+      addingSpacesInBetween("abc", "");
    }
+
+   //abc = a_b_c,ab_c,a_bc,abc
+   private static void addingSpacesInBetween(String str, String ssf) {
+      if (str.isBlank()) return;
+      // required a helper as we have a problem with -A in beginning
+      addingSpacesInBetweenHelper(str.substring(1), ssf, str.charAt(0));
+   }
+
+   private static void addingSpacesInBetweenHelper(String str, String ssf, char first) {
+
+      if (str.length() <= 0) {
+         System.out.println(first + ssf);
+         return;
+      }
+
+      addingSpacesInBetweenHelper(str.substring(1), ssf + "_" + str.charAt(0), first);
+      addingSpacesInBetweenHelper(str.substring(1), ssf + str.charAt(0), first);
+   }
+
 
    private static void uniqueSubset(String str, String ssf, Set<String> set) {
 //      Set<String> set = new LinkedHashSet<>();
