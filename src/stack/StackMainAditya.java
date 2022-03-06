@@ -5,7 +5,22 @@ import java.util.Stack;
 
 public class StackMainAditya {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(smallestToTheRight(new int[]{14, 13, 21, 3})));
+      System.out.println(Arrays.toString(smallestToTheLeft(new int[]{1, 3, 2, 3})));
+   }
+
+   private static int[] smallestToTheLeft(int[] arr) {
+//      System.out.println(Arrays.toString(smallestToTheLeft(new int[]{1, 3, 2, 3})));
+      int len = arr.length;
+      int[] STL = new int[len];
+      Stack<Integer> stack = new Stack<>();
+      for (int i = 0; i < len; i++) {
+         while (!stack.isEmpty() && stack.peek() >= arr[i]) {
+            stack.pop();
+         }
+         STL[i] = stack.isEmpty() ? -1 : stack.peek();
+         stack.push(arr[i]);
+      }
+      return STL;
    }
 
    private static int[] smallestToTheRight(int[] arr) {
