@@ -4,12 +4,32 @@ import java.util.*;
 
 public class RecClass {
    public static void main(String[] args) {
-      List<String> list = generateBinary(3);
-      list.forEach(System.out::println);
+
 
    }
 
+   private static int[] separateZeroOneTwo(int[] arr) {
+//      System.out.println(Arrays.toString(separateZeroOneTwo(new int[]{2, 1, 0, 0, 0, 1, 2, 1, 2, 1})));
+      int low = 0, mid = 0, high = arr.length - 1;
+
+      while (mid < high) {
+         if (arr[mid] == 0) {
+            swapping(arr, mid, low++);
+         }
+         if (arr[mid] == 1) {
+            mid++;
+         }
+         if (arr[mid] == 2) {
+            swapping(arr, mid, high--);
+         }
+      }
+
+      return arr;
+   }
+
    private static List<String> generateBinary(int num) {
+//      List<String> list = generateBinary(3);
+//      list.forEach(System.out::println);
       List<String> list = new ArrayList<>();
       generateBinaryHelper(0, 0, list, "", num);
       return list;
