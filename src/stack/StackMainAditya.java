@@ -5,7 +5,23 @@ import java.util.Stack;
 
 public class StackMainAditya {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(greatestToTheLeft(new int[]{14, 13, 21, 3})));
+      System.out.println(Arrays.toString(smallestToTheRight(new int[]{14, 13, 21, 3})));
+   }
+
+   private static int[] smallestToTheRight(int[] arr) {
+//      System.out.println(Arrays.toString(smallestToTheRight(new int[]{14, 13, 21, 3})));
+      int len = arr.length;
+      Stack<Integer> stack = new Stack<>();
+      int[] NSE = new int[len];
+
+      for (int i = len - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && stack.peek() >= arr[i]) {
+            stack.pop();
+         }
+         NSE[i] = stack.isEmpty() ? -1 : stack.peek();// same code via ternary operator
+         stack.push(arr[i]);
+      }
+      return NSE;
    }
 
    // its iteration is from right to left else is same as NGE
