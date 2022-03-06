@@ -5,7 +5,26 @@ import java.util.*;
 public class RecClass {
    public static void main(String[] args) {
 
+      System.out.println(josephProblem(4, 2));
+   }
 
+   // time complexity problem still good if asked in interview
+   // url https://practice.geeksforgeeks.org/problems/game-of-death-in-a-circle1840/1
+   private static int josephProblem(int num, int k) {
+//      System.out.println(josephProblem(4, 2));
+      List<Integer> list = new LinkedList<>();
+      for (int i = 1; i <= num; i++) {
+         list.add(i);
+      }
+      return josephProblemHelper(0, k - 1, list);
+   }
+
+   private static int josephProblemHelper(int index, int k, List<Integer> list) {
+      if (list.size() == 1) return list.get(0);
+      int indexOfRemovingElement = (index + k) % list.size();
+      list.remove(indexOfRemovingElement);
+
+      return josephProblemHelper(indexOfRemovingElement, k, list);
    }
 
    private static int[] separateZeroOneTwo(int[] arr) {
