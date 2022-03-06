@@ -5,7 +5,25 @@ import java.util.*;
 public class RecClass {
    public static void main(String[] args) {
 
-      System.out.println(josephProblem(4, 2));
+      System.out.println(safeSpot(40, 7));
+   }
+
+
+   private static int safeSpot(int num, int k) {
+//      System.out.println(safeSpot(40, 7));
+      List<Integer> list = new LinkedList<>();
+      for (int i = 1; i <= num; i++) list.add(i);
+
+      k--;
+      int index = 0;
+      int size = list.size();
+      while (list.size() > 1) {
+         int indexOfRemovingElement = (index + k) % size--;
+         list.remove(indexOfRemovingElement);
+         index = indexOfRemovingElement;
+      }
+
+      return list.get(0);
    }
 
    // time complexity problem still good if asked in interview
