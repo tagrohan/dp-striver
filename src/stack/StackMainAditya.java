@@ -5,7 +5,23 @@ import java.util.Stack;
 
 public class StackMainAditya {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(smallestToTheLeft(new int[]{1, 3, 2, 3})));
+      System.out.println(Arrays.toString(stockSpain(new int[]{100, 80, 60, 60, 60, 75, 85})));
+   }
+
+   private static int[] stockSpain(int[] arr) {
+//      System.out.println(Arrays.toString(stockSpain(new int[]{100, 80, 60, 60, 60, 75, 85})));
+      int len = arr.length;
+      int[] timeDiff = new int[len];
+      Stack<Integer> stack = new Stack<>();
+
+      for (int i = 0; i < len; i++) {
+         while (!stack.isEmpty() && arr[stack.peek()] <= arr[i]) {
+            stack.pop();
+         }
+         timeDiff[i] = stack.isEmpty() ? i + 1 : i - stack.peek();
+         stack.push(i);
+      }
+      return timeDiff;
    }
 
    private static int[] smallestToTheLeft(int[] arr) {
