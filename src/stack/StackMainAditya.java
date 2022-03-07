@@ -5,7 +5,43 @@ import java.util.Stack;
 
 public class StackMainAditya {
    public static void main(String[] args) {
-      System.out.println(Arrays.toString(stockSpain(new int[]{100, 80, 60, 60, 60, 75, 85})));
+      System.out.println(maxAreaOfHistogram(new int[]{6, 2, 5, 4, 5, 1, 6}));
+   }
+
+   private static int maxAreaOfHistogram(int[] arr) {
+      int[] smallestToRight = smallestToRightForHistogram(arr);
+      int[] smallestToLeft = smallestToLeftForHistogram(arr);
+      int max = Integer.MIN_VALUE;
+      for (int i = 0; i < arr.length; i++) {
+         max = Integer.max((smallestToRight[i] + smallestToLeft[i] - 1) * arr[i], max);
+      }
+      return max;
+   }
+
+   private static int[] smallestToRightForHistogram(int[] arr) {
+      int len = arr.length;
+      int[] STR = new int[len];
+      Stack<Integer> stack = new Stack<>();
+      for (int i = len - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) stack.pop();
+
+         STR[i] = stack.isEmpty() ? len - i : stack.peek() - i;
+         stack.push(i);
+      }
+      return STR;
+   }
+
+   private static int[] smallestToLeftForHistogram(int[] arr) {
+      int len = arr.length;
+      int[] STL = new int[len];
+      Stack<Integer> stack = new Stack<>();
+      for (int i = 0; i < len; i++) {
+         while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) stack.pop();
+
+         STL[i] = stack.isEmpty() ? i + 1 : i - stack.peek();
+         stack.push(i);
+      }
+      return STL;
    }
 
    private static int[] stockSpain(int[] arr) {
