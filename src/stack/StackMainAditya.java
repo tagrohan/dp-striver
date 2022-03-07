@@ -5,7 +5,30 @@ import java.util.Stack;
 
 public class StackMainAditya {
    public static void main(String[] args) {
-      System.out.println(maxAreaOfHistogram(new int[]{6, 2, 5, 4, 5, 1, 6}));
+      System.out.println(areaOfRectangleInBinaryMetric(new int[][]{
+           {0, 1, 1, 0},
+           {1, 1, 1, 1},
+           {1, 1, 1, 1},
+           {1, 1, 0, 0}
+      }));
+   }
+
+   private static int areaOfRectangleInBinaryMetric(int[][] arr) {
+//      System.out.println(areaOfRectangleInBinaryMetric(new int[][]{
+//           {0, 1, 1, 0},
+//           {1, 1, 1, 1},
+//           {1, 1, 1, 1},
+//           {1, 1, 0, 0}
+//      }));
+      int max = -1;
+      int[] toPass = new int[arr.length];
+      for (int i = 0; i < arr.length; i++) {
+         for (int j = 0; j < arr.length; j++) {
+            toPass[i] += arr[i][j];
+         }
+         max = Integer.max(max, maxAreaOfHistogram(toPass));
+      }
+      return max;
    }
 
    private static int maxAreaOfHistogram(int[] arr) {
