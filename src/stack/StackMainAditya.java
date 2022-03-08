@@ -5,13 +5,41 @@ import java.util.Stack;
 
 public class StackMainAditya {
    public static void main(String[] args) {
-      System.out.println(areaOfRectangleInBinaryMetric(new int[][]{
-           {0, 1, 1, 0},
-           {1, 1, 1, 1},
-           {1, 1, 1, 1},
-           {1, 1, 0, 0}
-      }));
+      System.out.println(rainWaterTrapping(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
    }
+
+   private static int rainWaterTrapping(int[] arr) {
+
+      int[] maxToLeft = maxToLeft(arr);
+      int[] maxToRight = maxToRight(arr);
+
+
+      int totalWater = 0;
+      for (int i = 0; i < arr.length; i++) {
+         totalWater = totalWater + Integer.min(maxToRight[i], maxToLeft[i]) - arr[i];
+      }
+      return totalWater;
+   }
+
+   private static int[] maxToLeft(int[] arr) {
+      int[] toLeft = new int[arr.length];
+      toLeft[0] = arr[0];
+      for (int i = 1; i < arr.length; i++) {
+         toLeft[i] = Integer.max(toLeft[i - 1], arr[i]);
+      }
+      return toLeft;
+   }
+
+   private static int[] maxToRight(int[] arr) {
+      int indexes = arr.length - 1;
+      int[] toRight = new int[indexes + 1];
+      toRight[indexes] = arr[indexes];
+      for (int i = indexes - 1; i >= 0; i--) {
+         toRight[i] = Integer.max(toRight[i + 1], arr[i]);
+      }
+      return toRight;
+   }
+
 
    private static int areaOfRectangleInBinaryMetric(int[][] arr) {
 //      System.out.println(areaOfRectangleInBinaryMetric(new int[][]{
