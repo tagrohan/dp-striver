@@ -5,14 +5,15 @@ import java.util.Stack;
 
 public class StackMainAditya {
    public static void main(String[] args) {
-      System.out.println(rainWaterTrapping(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
+
+      // todo: some questions left in stack, so take care that as well
    }
 
    private static int rainWaterTrapping(int[] arr) {
+//      System.out.println(rainWaterTrapping(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
 
       int[] maxToLeft = maxToLeft(arr);
       int[] maxToRight = maxToRight(arr);
-
 
       int totalWater = 0;
       for (int i = 0; i < arr.length; i++) {
