@@ -4,11 +4,11 @@ import java.util.*;
 
 public class HeapMain {
    public static void main(String[] args) {
-      int[] arr = new int[]{6, 5, 3, 2, 8, 10, 9};
-      System.out.println(Arrays.toString(sortKSorted(arr, 3)));
    }
 
    private static int[] sortKSorted(int[] arr, int k) {
+//      int[] arr = new int[]{6, 5, 3, 2, 8, 10, 9};
+//      System.out.println(Arrays.toString(sortKSorted(arr, 3)));
       Queue<Integer> queue = new PriorityQueue<>();
       int[] sortedArray = new int[arr.length];
       int i = 0;
