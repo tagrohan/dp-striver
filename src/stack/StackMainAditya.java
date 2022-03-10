@@ -8,7 +8,30 @@ public class StackMainAditya {
 
       // todo: some questions left in stack, so take care that as well
 
-      System.out.println(checkExtraBracket("(a + b) + ((c + d))"));
+      System.out.println(Arrays.toString(slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0, 7, 19, 8, 12, 6}, 4)));
+   }// todo will do in morning
+   private static int[] slidingWindowMaximum(int[] arr, int k) {
+      int[] NGR = nextGreatestIndex(arr); // 1, 6, 3, 6, 5, 6, 8, 8, 10, 10, 10, 12, 13, 13, 15, 15, 6
+      int j = 0, len = arr.length;
+      int[] out = new int[len];
+      for (int i = 0; i < len; i++) {
+         while (NGR[j] < i + k) {
+            j = NGR[j];
+         }
+         out[i] = arr[j];
+      }
+      return out;
+   }
+
+   private static int[] nextGreatestIndex(int[] arr) {
+      Stack<Integer> stack = new Stack<>();
+      int[] NGE = new int[arr.length];
+      for (int i = arr.length - 1; i >= 0; i--) {
+         while (!stack.isEmpty() && arr[stack.peek()] <= arr[i]) stack.pop();
+         NGE[i] = stack.isEmpty() ? i : stack.peek();
+         stack.push(i);
+      }
+      return NGE;
    }
 
    // ex - (a + b) + ((c + d)) -> () is extra in second half

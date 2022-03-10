@@ -3,7 +3,35 @@ package hashmap_heap;
 import java.util.*;
 
 public class HeapMain {
+   // todo imp
+   static class Pair implements Comparable<Pair> {
+
+      int index;
+      int data;
+
+      public Pair(int index, int date) {
+         this.index = index;
+         this.data = date;
+      }
+
+      @Override
+      public int compareTo(Pair o) {
+         return this.data - o.data;
+      }
+   }
+
    public static void main(String[] args) {
+      kClosestNumber(new int[]{5, 6, 10, 20, 30, 7, 8, 9, 10, 11, 12}, 3, 7);
+   }
+
+   private static void kClosestNumber(int[] arr, int k, int num) {
+      int[] closest = new int[k];
+      Queue<Pair> queue = new PriorityQueue<>(Collections.reverseOrder());
+      for (int i = 0; i < arr.length; i++) {
+         queue.add(new Pair(i, Math.abs(num - arr[i])));
+         if (queue.size() > k) queue.remove();
+      }
+      queue.forEach(obj -> System.out.print(arr[obj.index] + " "));
    }
 
    private static int[] sortKSorted(int[] arr, int k) {
