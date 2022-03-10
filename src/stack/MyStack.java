@@ -5,8 +5,9 @@ import java.util.Stack;
 
 public class MyStack {
 
-   private Stack<Integer> stack = new Stack<>();
-   private Stack<Integer> minValStack = new Stack<>();
+   // todo in O(i) still pending
+   private final Stack<Integer> stack = new Stack<>();
+   private final Stack<Integer> minValStack = new Stack<>();
 
    public static void main(String[] args) {
       // 18, 19, 29, 15, 16
@@ -40,4 +41,5 @@ public class MyStack {
       if (Objects.equals(stack.peek(), minValStack.peek())) minValStack.pop();
       return stack.pop();
    }
+   // from here we are going to implement version 2 of it, O(1) space;
 }

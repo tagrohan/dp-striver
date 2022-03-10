@@ -7,6 +7,24 @@ public class StackMainAditya {
    public static void main(String[] args) {
 
       // todo: some questions left in stack, so take care that as well
+
+      System.out.println(checkExtraBracket("(a + b) + ((c + d))"));
+   }
+
+   // ex - (a + b) + ((c + d)) -> () is extra in second half
+   private static boolean checkExtraBracket(String str) {
+//      System.out.println(checkExtraBracket("(a + b) + ((c + d))"));
+      Stack<Character> stack = new Stack<>();
+      for (int i = 0; i < str.length(); i++) {
+         char ch = str.charAt(i);
+         if (Character.isSpaceChar(ch)) continue; // not checking for spaces
+         if (ch == ')') {
+            if (stack.peek() == '(') return true;
+            while (stack.peek() != '(') stack.pop(); // no need to take care of empty check here
+            stack.pop();
+         } else stack.push(ch);
+      }
+      return false;
    }
 
    private static int rainWaterTrapping(int[] arr) {
