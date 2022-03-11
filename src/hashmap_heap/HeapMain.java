@@ -5,7 +5,22 @@ import java.util.*;
 public class HeapMain {
 
    public static void main(String[] args) {
-      kFrequentNumber(new int[]{1, 1, 1, 3, 2, 2, 24}, 2);
+      frequencySort(new int[]{1, 1, 1, 3, 2, 2, 24});
+   }
+
+   // sort them based on their frequency, means most frequent come early
+   private static void frequencySort(int[] arr) {
+//      frequencySort(new int[]{1, 1, 1, 3, 2, 2, 24});
+      Map<Integer, Integer> map = new HashMap<>();
+      for (int ele : arr) map.put(ele, map.containsKey(ele) ? map.get(ele) + 1 : 1);
+      Queue<Pair> queue = new PriorityQueue<>(Collections.reverseOrder());
+      map.forEach((number, frequency) -> queue.add(new Pair(number, frequency)));
+      queue.forEach(pair -> {
+         for (int i = 0; i < pair.data; i++) {
+            System.out.print(pair.index);
+         }
+      });
+
    }
 
    // top k frequent element ex for k = 2 in [1,1,1,3,2,2,4] is 1,2
