@@ -6,14 +6,39 @@ import java.util.Stack;
 public class StackMainAditya {
    public static void main(String[] args) {
 
-      mergeOverlappingIntervals(new int[][]{
-           {1, 8},
-           {5, 12},
-           {14, 19},
-           {22, 28},
-           {25, 27},
-           {27, 30},
-      });
+      System.out.println(celebrityProblem(new int[][]{ // pep coding
+           //0  1  2  3
+           {0, 1, 1, 1},// 0
+           {1, 0, 1, 0},// 1
+           {0, 0, 0, 0},// 2
+           {1, 1, 1, 0},// 3
+      }));
+   }
+
+   private static boolean celebrityProblem(int[][] arr) {
+//      System.out.println(celebrityProblem(new int[][]{ // pep coding
+//           //0  1  2  3
+//           {0, 1, 1, 1},// 0
+//           {1, 0, 1, 0},// 1
+//           {0, 0, 0, 0},// 2
+//           {1, 1, 1, 0},// 3
+//      }));
+      Stack<Integer> stack = new Stack<>();
+      for (int i = arr.length - 1; i >= 0; i--) stack.add(i);
+      while (stack.size() > 1) {
+         int firstIndex = stack.pop();
+         int secondIndex = stack.pop();
+         if (arr[firstIndex][secondIndex] == 1) stack.push(secondIndex);
+         else stack.push(firstIndex);
+      }
+      for (int i = 0; i < arr.length; i++) {
+         if (i == stack.peek()) {
+            if (arr[i][stack.peek()] == 1) return false;
+            else continue;
+         }
+         if (arr[i][stack.peek()] != 1 || arr[stack.peek()][i] != 0) return false;
+      }
+      return true;
    }
 
    private static void mergeOverlappingIntervals(int[][] intervals) {
