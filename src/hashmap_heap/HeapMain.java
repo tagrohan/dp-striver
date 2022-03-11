@@ -5,7 +5,26 @@ import java.util.*;
 public class HeapMain {
 
    public static void main(String[] args) {
-      frequencySort(new int[]{1, 1, 1, 3, 2, 2, 24});
+      kClosestToOrigin(new int[][]{
+           {1, 3},
+           {-2, 2},
+           {5, 8},
+           {0, 1}}, 2);
+   }
+
+   private static void kClosestToOrigin(int[][] coordinated, int noOfPoints) { //  (x^2 + y^2)^-2
+//      kClosestToOrigin(new int[][]{
+//           {1, 3},
+//           {-2, 2},
+//           {5, 8},
+//           {0, 1}}, 2);
+      Queue<Pair> queue = new PriorityQueue<>(Collections.reverseOrder());
+      for (int i = 0; i < coordinated.length; i++) { // so I am going to store (x^2 + y^2)^-2 as data and in index actual row in array so that I can retrieve it later
+         double value = Math.pow(coordinated[i][0], 2) + Math.pow(coordinated[i][1], 2);
+         queue.add(new Pair(i, (int) Math.sqrt(value)));
+         if (queue.size() > noOfPoints) queue.remove();
+      }
+      queue.forEach(pair -> System.out.println(Arrays.toString(coordinated[pair.index])));
    }
 
    // sort them based on their frequency, means most frequent come early
