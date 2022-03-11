@@ -5,11 +5,22 @@ import java.util.*;
 public class HeapMain {
 
    public static void main(String[] args) {
-      kClosestToOrigin(new int[][]{
-           {1, 3},
-           {-2, 2},
-           {5, 8},
-           {0, 1}}, 2);
+      System.out.println(connectRopesToMinimiseTheCost(new int[]{1, 2, 3, 4, 5}));
+   }
+
+   private static int connectRopesToMinimiseTheCost(int[] arr) {
+//      System.out.println(connectRopesToMinimiseTheCost(new int[]{1, 2, 3, 4, 5}));
+      int totalCost = 0;
+      Queue<Integer> queue = new PriorityQueue<Integer>();
+      for (int ele : arr) queue.add(ele);
+      while (queue.size() > 1) {
+         int first = queue.remove();
+         int second = queue.remove();
+         totalCost += first + second;
+         queue.add(first + second);
+      }
+
+      return totalCost;
    }
 
    private static void kClosestToOrigin(int[][] coordinated, int noOfPoints) { //  (x^2 + y^2)^-2
