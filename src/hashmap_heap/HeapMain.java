@@ -5,7 +5,15 @@ import java.util.*;
 public class HeapMain {
 
    public static void main(String[] args) {
-      System.out.println(connectRopesToMinimiseTheCost(new int[]{1, 2, 3, 4, 5}));
+      System.out.println(sumOfElementInBetween(Arrays.asList(1, 3, 12, 5, 15, 11), 3, 6));
+   }
+
+   private static int sumOfElementInBetween(List<Integer> arr, int k1, int k2) {
+      int k1th = kthSmallest(arr, k1);
+      int k2th = kthSmallest(arr, k2);
+      int sum = 0;
+      for (Integer integer : arr) if (integer > k1th && integer < k2th) sum += integer;
+      return sum;
    }
 
    private static int connectRopesToMinimiseTheCost(int[] arr) {
