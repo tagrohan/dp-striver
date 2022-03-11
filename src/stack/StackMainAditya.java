@@ -6,11 +6,57 @@ import java.util.Stack;
 public class StackMainAditya {
    public static void main(String[] args) {
 
-      // todo: some questions left in stack, so take care that as well
+      mergeOverlappingIntervals(new int[][]{
+           {1, 8},
+           {5, 12},
+           {14, 19},
+           {22, 28},
+           {25, 27},
+           {27, 30},
+      });
+   }
 
-      System.out.println(Arrays.toString(slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0, 7, 19, 8, 12, 6}, 4)));
-   }// todo will do in morning
+   private static void mergeOverlappingIntervals(int[][] intervals) {
+//      mergeOverlappingIntervals(new int[][]{
+//           {1, 8},
+//           {5, 12},
+//           {14, 19},
+//           {22, 28},
+//           {25, 27},
+//           {27, 30},
+//      });
+      Stack<Pair> stack = new Stack<>();
+      stack.push(new Pair(intervals[0][0], intervals[0][1]));
+      for (int i = 1; i < intervals.length; i++) {
+         Pair stackPair = stack.peek();
+         Pair newInterval = new Pair(intervals[i][0], intervals[i][1]);
+         if (stackPair.second > newInterval.first) {
+            if (stackPair.second < newInterval.second) stack.peek().second = newInterval.second;
+         } else stack.push(newInterval);
+      }
+      stack.forEach(System.out::println);
+   }
+
+   private static class Pair {
+      int first, second;
+
+      public Pair(int first, int second) {
+         this.first = first;
+         this.second = second;
+      }
+
+      @Override
+      public String toString() {
+         return "Pair{" +
+              "first=" + first +
+              ", second=" + second +
+              '}';
+      }
+   }
+
+   // todo will do in morning
    private static int[] slidingWindowMaximum(int[] arr, int k) {
+//      System.out.println(Arrays.toString(slidingWindowMaximum(new int[]{2, 9, 3, 8, 1, 7, 12, 6, 14, 4, 32, 0, 7, 19, 8, 12, 6}, 4)));
       int[] NGR = nextGreatestIndex(arr); // 1, 6, 3, 6, 5, 6, 8, 8, 10, 10, 10, 12, 13, 13, 15, 15, 6
       int j = 0, len = arr.length;
       int[] out = new int[len];

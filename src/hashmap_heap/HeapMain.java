@@ -8,7 +8,9 @@ public class HeapMain {
       System.out.println(sumOfElementInBetween(Arrays.asList(1, 3, 12, 5, 15, 11), 3, 6));
    }
 
+   // aditya complete here more to goo...
    private static int sumOfElementInBetween(List<Integer> arr, int k1, int k2) {
+//      System.out.println(sumOfElementInBetween(Arrays.asList(1, 3, 12, 5, 15, 11), 3, 6));
       int k1th = kthSmallest(arr, k1);
       int k2th = kthSmallest(arr, k2);
       int sum = 0;
