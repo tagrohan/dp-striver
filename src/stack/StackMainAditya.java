@@ -6,13 +6,23 @@ import java.util.Stack;
 public class StackMainAditya {
    public static void main(String[] args) {
 
-      System.out.println(celebrityProblem(new int[][]{ // pep coding
-           //0  1  2  3
-           {0, 1, 1, 1},// 0
-           {1, 0, 1, 0},// 1
-           {0, 0, 0, 0},// 2
-           {1, 1, 1, 0},// 3
-      }));
+      smallestNumberFollowingPattern("dddiddd");
+   }
+
+   // dddiddd -> 43218765 check pep coding stack : https://www.pepcoding.com/resources/online-java-foundation/stacks-and-queues/smallest-number-following-pattern-official/ojquestion
+   private static void smallestNumberFollowingPattern(String str) {
+      Stack<Integer> stack = new Stack<>();
+      int counter = 0;
+      for (int i = 0; i < str.length(); i++) {
+         char ch = str.charAt(i);
+         while (!stack.isEmpty() && ch == 'i') {
+            System.out.print(stack.pop());
+         }
+         if (ch == 'i') continue;
+         stack.push(counter++);
+      }
+      while (!stack.isEmpty()) System.out.print(stack.pop());
+
    }
 
    private static boolean celebrityProblem(int[][] arr) {
