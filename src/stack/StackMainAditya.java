@@ -6,21 +6,25 @@ import java.util.Stack;
 public class StackMainAditya {
    public static void main(String[] args) {
 
-      smallestNumberFollowingPattern("dddiddd");
+      smallestNumberFollowingPattern("dddiddd"); 
    }
 
    // dddiddd -> 43218765 check pep coding stack : https://www.pepcoding.com/resources/online-java-foundation/stacks-and-queues/smallest-number-following-pattern-official/ojquestion
    private static void smallestNumberFollowingPattern(String str) {
+//      smallestNumberFollowingPattern("dddiddd");
       Stack<Integer> stack = new Stack<>();
-      int counter = 0;
+      int counter = 1;
       for (int i = 0; i < str.length(); i++) {
          char ch = str.charAt(i);
-         while (!stack.isEmpty() && ch == 'i') {
-            System.out.print(stack.pop());
+         if (ch == 'd') stack.push(counter++);
+         if (ch == 'i') {
+            stack.push(counter++);
+            while (!stack.isEmpty()) {
+               System.out.print(stack.pop());
+            }
          }
-         if (ch == 'i') continue;
-         stack.push(counter++);
       }
+      stack.push(counter);
       while (!stack.isEmpty()) System.out.print(stack.pop());
 
    }
