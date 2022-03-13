@@ -4,12 +4,26 @@ import java.util.*;
 
 public class MyHashMap {
    public static void main(String[] args) {
-      System.out.println(longestConsecutiveV1(new int[]{10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2}));
+      System.out.println(longestConsecutiveV2(new Integer[]{10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2}));
    }
 
-   private static int longestConsecutiveV2(int[] arr) {
-
-      return -1;
+   // it will work for -ve and +ve both
+   // if you want to see how to save them in list check below
+   private static int longestConsecutiveV2(Integer[] arr) {
+//      System.out.println(longestConsecutiveV2(new Integer[]{10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2}));
+      Set<Integer> set = new HashSet<>(Arrays.asList(arr));
+      int counter = 0;
+      int max = 0;
+      for (Integer i : arr) {
+         if (set.contains(i)) {
+            counter = 1;
+            while (set.contains(i + counter)) {
+               counter++;
+            }
+            max = Integer.max(counter, max);
+         }
+      }
+      return max;
    }
 
    // work only for +ve
