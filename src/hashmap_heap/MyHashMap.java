@@ -7,7 +7,29 @@ import java.util.Set;
 
 public class MyHashMap {
    public static void main(String[] args) {
-      printCommonElementV1(new int[]{1, 1, 2, 2, 3, 3, 4}, new int[]{1, 1, 1, 2, 2, 4, 5});
+      System.out.println(longestConsecutiveV1(new int[]{10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2}));
+   }
+
+   // work only for +ve
+   private static int longestConsecutiveV1(int[] arr) {
+//      System.out.println(longestConsecutiveV1(new int[]{10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2})); -> 5 for this -> 8 9 10 11 12
+      int start = Integer.MAX_VALUE, range = Integer.MIN_VALUE;
+      for (int val : arr) {
+         start = Integer.min(start, val);
+         range = Integer.max(range, val);
+      }
+      int[] res = new int[range + 1];
+      for (int val : arr) res[val] = 1;
+      int maxLength = 0, currentLen = 0;
+      for (int i = start; i < res.length; i++) {
+         if (res[i] == 1) {
+            currentLen += 1;
+         } else {
+            maxLength = Integer.max(maxLength, currentLen);
+            currentLen = 0;
+         }
+      }
+      return maxLength;
    }
 
    private static void printCommonElementV1(int[] arr1, int[] arr2) {
