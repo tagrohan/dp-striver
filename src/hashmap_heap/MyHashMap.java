@@ -1,13 +1,15 @@
 package hashmap_heap;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class MyHashMap {
    public static void main(String[] args) {
       System.out.println(longestConsecutiveV1(new int[]{10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2}));
+   }
+
+   private static int longestConsecutiveV2(int[] arr) {
+
+      return -1;
    }
 
    // work only for +ve
@@ -21,14 +23,26 @@ public class MyHashMap {
       int[] res = new int[range + 1];
       for (int val : arr) res[val] = 1;
       int maxLength = 0, currentLen = 0;
+      // in case if you want that list
+      List<Integer> resList = new ArrayList<>();
+      List<Integer> counterList = new ArrayList<>();
       for (int i = start; i < res.length; i++) {
          if (res[i] == 1) {
             currentLen += 1;
+            counterList.add(i);
          } else {
-            maxLength = Integer.max(maxLength, currentLen);
+//            maxLength = Integer.max(maxLength, currentLen);
+            if (maxLength < currentLen) {
+               maxLength = currentLen;
+               resList.clear();
+               resList.addAll(counterList);
+            }
             currentLen = 0;
+            counterList.clear();
          }
       }
+      resList.forEach(ele -> System.out.print(ele + ","));
+      System.out.println();
       return maxLength;
    }
 
