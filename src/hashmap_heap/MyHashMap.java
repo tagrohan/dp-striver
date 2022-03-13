@@ -5,10 +5,22 @@ import java.util.Map;
 
 public class MyHashMap {
    public static void main(String[] args) {
-      System.out.println(highestFrequency("abracadabra"));
+      printCommonElement(new int[]{1, 1, 2, 2, 3, 3, 4}, new int[]{1, 1, 1, 2, 2, 4, 5});
+   }
+
+   private static void printCommonElement(int[] arr1, int[] arr2) {
+//      printCommonElement(new int[]{1, 1, 2, 2, 3, 3, 4}, new int[]{1, 1, 1, 2, 2, 4, 5});
+      Map<Integer, Integer> map = new HashMap<>();
+      for (int val : arr1) map.put(val, map.containsKey(val) ? map.get(val) + 1 : 1);
+      for (int val : arr2)
+         if (map.containsKey(val) && map.get(val) > 0) {
+            System.out.print(val);
+            map.put(val, map.get(val) - 1);
+         }
    }
 
    private static char highestFrequency(String str) {
+//      System.out.println(highestFrequency("abracadabra"));
       Map<Character, Integer> map = new HashMap<>();
 
       for (int i = 0; i < str.length(); i++) {
