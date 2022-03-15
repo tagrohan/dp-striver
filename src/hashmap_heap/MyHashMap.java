@@ -59,7 +59,7 @@ public class MyHashMap {
       System.out.println();
       return maxLength;
    }
-
+//  print only common in both
    private static void printCommonElementV1(int[] arr1, int[] arr2) {
 //      printCommonElementV1(new int[]{1, 1, 2, 2, 3, 3, 4}, new int[]{1, 1, 1, 2, 2, 4, 5});
       Set<Integer> set = new HashSet<>();
@@ -71,7 +71,7 @@ public class MyHashMap {
          }
       }
    }
-
+//  print common irrespective no. of times in bot
    private static void printCommonElementV2(int[] arr1, int[] arr2) {
 //      printCommonElementV2(new int[]{1, 1, 2, 2, 3, 3, 4}, new int[]{1, 1, 1, 2, 2, 4, 5});
       Map<Integer, Integer> map = new HashMap<>();

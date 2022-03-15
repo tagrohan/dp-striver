@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class MyStack {
 
-   // todo in O(i) still pending
+   // todo in O(1) still pending
    private final Stack<Integer> stack = new Stack<>();
    private final Stack<Integer> minValStack = new Stack<>();
 

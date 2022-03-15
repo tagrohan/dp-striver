@@ -5,7 +5,55 @@ import java.util.*;
 public class HeapMain {
 
    public static void main(String[] args) {
-      System.out.println(sumOfElementInBetween(Arrays.asList(1, 3, 12, 5, 15, 11), 3, 6));
+      List<List<Integer>> list = new ArrayList<>();
+      list.add(List.of(1, 4, 5));
+      list.add(List.of(1, 3, 4));
+      list.add(List.of(2, 6));
+      List<Integer> merge = mergeKSortedList(list);
+      System.out.println(Arrays.toString(merge.toArray()));
+   }
+
+
+   //todo will do after lunch
+   private static List<Integer> mergeKSortedList(List<List<Integer>> lists) {
+//      List<List<Integer>> list = new ArrayList<>();
+//      list.add(List.of(1, 4, 5));
+//      list.add(List.of(1, 3, 4));
+//      list.add(List.of(2, 6));
+//      List<Integer> merge = mergeKSortedList(list);
+//      System.out.println(Arrays.toString(merge.toArray()));
+      PriorityQueue<Quad> queue = new PriorityQueue<>();
+      List<Integer> toReturn = new ArrayList<>();
+      for (int i = 0; i < lists.size(); i++) {
+         queue.add(new Quad(lists.get(i).get(0), 0, i));
+      }
+      while (queue.size() > 0) {
+         Quad q = queue.remove();
+         toReturn.add(q.data);
+         q.index++;
+         if (q.index < lists.get(q.listIndex).size()) {
+            queue.add(new Quad(lists.get(q.listIndex).get(q.index), q.index, q.listIndex));
+         }
+      }
+
+      return toReturn;
+   }
+
+   private static class Quad implements Comparable<Quad> {
+      int data;
+      int index;
+      int listIndex;
+
+      public Quad(int data, int index, int listIndex) {
+         this.data = data;
+         this.index = index;
+         this.listIndex = listIndex;
+      }
+
+      @Override
+      public int compareTo(Quad o) {
+         return this.data - o.data;
+      }
    }
 
    // aditya complete here more to goo...
