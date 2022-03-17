@@ -3,15 +3,16 @@ package nodes;
 public class MyLinkedList {
 
    public static void main(String[] args) {
-      LinkedNode root = new LinkedNode(1, null);
-      LinkedNode r2 = new LinkedNode(2, null);
-      LinkedNode r3 = new LinkedNode(3, null);
-      LinkedNode r4 = new LinkedNode(4, null);
-      root.next = r2;
-      r2.next = r3;
-      r3.next = r4;
-      printList(addLast(root, 5));
+      LinkedNode root = generateList(new int[]{1});
+      printList(addFirst(root, 6));
 
+   }
+
+   private static LinkedNode addFirst(LinkedNode root, int data) {
+      if (root == null) return new LinkedNode(data);
+      LinkedNode temp = root.next;
+      root.next = new LinkedNode(data, temp);
+      return root;
    }
 
    private static LinkedNode addLast(LinkedNode root, int data) {
@@ -19,7 +20,7 @@ public class MyLinkedList {
       while (temp.next != null) {
          temp = temp.next;
       }
-      temp.next = new LinkedNode(data, null);
+      temp.next = new LinkedNode(data);
 
       return root;
    }
@@ -29,5 +30,15 @@ public class MyLinkedList {
          System.out.print(root.data + " ");
          root = root.next;
       }
+   }
+
+   private static LinkedNode generateList(int[] arr) {
+      LinkedNode root = new LinkedNode(arr[0]);
+      LinkedNode temp = root;
+      for (int i = 1; i < arr.length; i++) {
+         temp.next = new LinkedNode(arr[i]);
+         temp = temp.next;
+      }
+      return root;
    }
 }

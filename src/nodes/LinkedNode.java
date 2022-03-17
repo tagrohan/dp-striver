@@ -9,6 +9,10 @@ public class LinkedNode {
       this.next = next;
    }
 
+   public LinkedNode(int data) {
+      this.data = data;
+   }
+
    public LinkedNode() {
    }
 }
