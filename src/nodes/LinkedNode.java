@@ -1,18 +1,26 @@
 package nodes;
 
+import java.util.LinkedList;
+
 public class LinkedNode {
-   int data;
-   LinkedNode next;
+   private Node root;
+   private int size;
 
-   public LinkedNode(int data, LinkedNode next) {
-      this.data = data;
-      this.next = next;
+   static class Node {
+      int data;
+      Node next;
+
+      public Node(int data, Node next) {
+         this.data = data;
+         this.next = next;
+      }
+
    }
 
-   public LinkedNode(int data) {
-      this.data = data;
+
+   public LinkedNode add(int data) {
+      Node node = new Node(data, null);
+      return this;
    }
 
-   public LinkedNode() {
-   }
 }
