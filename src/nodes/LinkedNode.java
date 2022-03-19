@@ -1,6 +1,5 @@
 package nodes;
 
-import java.util.LinkedList;
 
 public class LinkedNode {
    private Node root;
@@ -24,6 +23,13 @@ public class LinkedNode {
       size = 0;
    }
 
+   public LinkedNode addFirst(int data) {
+      root = new Node(data, root);
+      size++;
+      return this;
+   }
+
+
    public LinkedNode add(int data) {
       if (size == 0) {
          root = new Node(data, null);
@@ -45,9 +51,10 @@ public class LinkedNode {
       }
       Node temp = root;
       while (temp.next != null) temp = temp.next;
-      for (int data : arr) {
-         temp.next = new Node(data);
+      for (int i = 1; i < arr.length; i++) {
+         temp.next = new Node(arr[i]);
          temp = temp.next;
+         size++;
       }
       return this;
    }
@@ -58,6 +65,10 @@ public class LinkedNode {
          System.out.print(temp.data + " ");
          temp = temp.next;
       }
+   }
+
+   public int size() {
+      return size;
    }
 
 }
