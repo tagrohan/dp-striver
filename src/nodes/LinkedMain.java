@@ -5,8 +5,7 @@ public class LinkedMain {
    public static void main(String[] args) {
       LinkedNode linked = new LinkedNode();
       linked.addAlL(1, 2, 4, 5, 6, 7, 8);
-      linked.addFirst(0);
-      linked.remove(2);
+      linked.remove(0);
       linked.print();
    }
 

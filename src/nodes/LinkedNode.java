@@ -22,17 +22,18 @@ public class LinkedNode {
    public LinkedNode() {
       size = 0;
    }
-// todo have to work on this
-   public LinkedNode remove(int index) {
+
+   // todo have to work on this
+   public LinkedNode remove(int index) { // 1, 2, 4, 5, 6, 7, 8, count = 5, index = 2
       if (size - 1 < index) {
          System.out.println("out of bound");
       } else if (index == 0) {
          pop();
       } else {
-         int count = size - 1;
+         int count = 1;
          Node temp = root;
-         while (count - 1 != index) {
-            count--;
+         while (count != index) {
+            count++;
             temp = temp.next;
          }
          temp.next = temp.next.next;
