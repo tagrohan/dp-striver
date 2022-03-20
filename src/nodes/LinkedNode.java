@@ -22,6 +22,35 @@ public class LinkedNode {
    public LinkedNode() {
       size = 0;
    }
+// todo have to work on this
+   public LinkedNode remove(int index) {
+      if (size - 1 < index) {
+         System.out.println("out of bound");
+      } else if (index == 0) {
+         pop();
+      } else {
+         int count = size - 1;
+         Node temp = root;
+         while (count - 1 != index) {
+            count--;
+            temp = temp.next;
+         }
+         temp.next = temp.next.next;
+//         root = temp;
+         size--;
+      }
+      return this;
+   }
+
+   public LinkedNode pop() {
+      if (size == 0) System.out.println("can't operate on empty list");
+      else {
+         root = root.next;
+         size--;
+      }
+
+      return this;
+   }
 
    public LinkedNode addFirst(int data) {
       root = new Node(data, root);
