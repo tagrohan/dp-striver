@@ -23,7 +23,19 @@ public class LinkedNode {
       size = 0;
    }
 
-   // todo have to work on this
+
+   LinkedNode reverse() {
+      Node prev = null, later = null;
+      while (root != null) {
+         prev = root;
+         root = root.next;
+         prev.next = later;
+         later = prev;
+      }
+      root = prev;
+      return this;
+   }
+
    public LinkedNode remove(int index) { // 1, 2, 4, 5, 6, 7, 8, count = 5, index = 2
       if (size - 1 < index) {
          System.out.println("out of bound");
