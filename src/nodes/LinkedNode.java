@@ -59,6 +59,28 @@ public class LinkedNode {
       return this;
    }
 
+   LinkedNode removeV2(int index) {
+      if (index > size - 1) {
+         System.out.println("out of bound");
+         return this;
+      }
+      size--;
+      if (index == 0) {
+         root = root.next;
+         return this;
+      }
+      Node temp = root;
+      int count = 0;
+      while (count < index - 1) {
+         count++;
+         temp = temp.next;
+      }
+      Node toRemove = temp.next;
+      temp.next = toRemove.next;
+      return this;
+   }
+
+
    LinkedNode add(int index, int data) {
       if (index > size) {
          System.out.println("out of bound");
