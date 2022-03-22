@@ -23,6 +23,19 @@ public class LinkedNode {
       size = 0;
    }
 
+   int kthFromTheEnd(int k) {
+      Node slow = root, fast = root;
+      while (fast != null && k > 0) {
+         k--;
+         fast = fast.next;
+      }
+      while (fast != null) {
+         fast = fast.next;
+         slow = slow.next;
+      }
+      return slow.data;
+   }
+
 
    LinkedNode reverse() {
       Node prev = null, later = null;
