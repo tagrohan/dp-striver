@@ -59,6 +59,27 @@ public class LinkedNode {
       return this;
    }
 
+   LinkedNode add(int index, int data) {
+      if (index > size) {
+         System.out.println("out of bound");
+         return this;
+      }
+      size++;
+      if (index == 0) {
+         root = new Node(data, root);
+         return this;
+      }
+      Node temp = root;
+      int count = 0;
+      while (count < index - 1) {
+         count++;
+         temp = temp.next;
+      }
+      Node toReplace = temp.next;
+      temp.next = new Node(data, toReplace);
+      return this;
+   }
+
 
    public LinkedNode add(int data) {
       if (size == 0) {
