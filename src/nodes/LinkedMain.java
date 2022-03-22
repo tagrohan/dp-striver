@@ -5,7 +5,7 @@ public class LinkedMain {
    public static void main(String[] args) {
       LinkedNode linked = new LinkedNode();
       linked.addAlL(1, 2, 4, 5, 6, 7, 8);
-      System.out.println(linked.kthFromTheEnd(2));
+      System.out.println(linked.findMid());
    }
 
 

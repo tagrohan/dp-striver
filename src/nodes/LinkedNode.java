@@ -23,6 +23,16 @@ public class LinkedNode {
       size = 0;
    }
 
+
+   int findMid() {
+      Node slow = root, fast = root;
+      while (fast.next != null && fast.next.next != null) {
+         slow = slow.next;
+         fast = fast.next.next;
+      }
+      return slow.data;
+   }
+
    int kthFromTheEnd(int k) {
       Node slow = root, fast = root;
       while (fast != null && k > 0) {
