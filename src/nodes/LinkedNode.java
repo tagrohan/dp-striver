@@ -26,6 +26,34 @@ public class LinkedNode {
       size = 0;
    }
 
+   void separateOddEven() { // odd first
+      Node even = new Node();
+      Node odd = new Node();
+      Node oddTail = new Node();
+      Node evenHead = even;
+      Node oddHead = odd;
+
+      while (root != null) {
+         Node node = new Node();
+         if (root.data % 2 == 0) {
+            node.data = root.data;
+            even = even.next = node;
+            root = root.next;
+         } else {
+            node.data = root.data;
+            odd = odd.next = node;
+            oddTail = node;
+            root = root.next;
+         }
+      }
+      if (oddHead.next == null && evenHead.next != null) root = evenHead.next;
+      else if (evenHead.next == null && oddHead.next != null) root = oddHead.next;
+      else {
+         oddTail.next = evenHead.next;
+         root = oddHead.next;
+      }
+   }
+
    void removeDuplicate() {
       Node sorted = root;
       while (sorted != null && sorted.next != null) {
