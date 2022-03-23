@@ -17,10 +17,45 @@ public class LinkedNode {
       public Node(int data) {
          this.data = data;
       }
+
+      public Node() {
+      }
    }
 
    public LinkedNode() {
       size = 0;
+   }
+
+
+   LinkedNode sortTwoSortedList(LinkedNode linkedNode) {
+      Node root2 = linkedNode.root;
+      Node nextNode = new Node();
+      Node head = nextNode;
+      while (root2 != null && root != null) {
+         Node tempNode = new Node();
+         if (root2.data < root.data) {
+            tempNode.data = root2.data;
+            root2 = root2.next;
+         } else {
+            tempNode.data = root.data;
+            root = root.next;
+         }
+         nextNode = nextNode.next = tempNode;
+         nextNode = nextNode.next;
+//         nextNode = nextNode.next = tempNode; // this works too
+      }
+      if (root2 != null) sortTheHalf(nextNode, root2);
+      else if (root != null) sortTheHalf(nextNode, root);
+      root = head.next;
+      return this;
+   }
+
+   private void sortTheHalf(Node nextNode, Node anyRoot) {
+      while (anyRoot != null) {
+         nextNode.next = new Node(anyRoot.data);
+         nextNode = nextNode.next;
+         anyRoot = anyRoot.next;
+      }
    }
 
 
