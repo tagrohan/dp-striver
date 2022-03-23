@@ -26,6 +26,15 @@ public class LinkedNode {
       size = 0;
    }
 
+   void removeDuplicate() {
+      Node sorted = root;
+      while (sorted != null && sorted.next != null) {
+         if (sorted.data == sorted.next.data) {
+            sorted.next = sorted.next.next;
+         } else sorted = sorted.next;
+      }
+   }
+
    LinkedNode mergeSort() {
       if (root == null) return this;
       Node tail = root;
