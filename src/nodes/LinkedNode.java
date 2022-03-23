@@ -26,6 +26,56 @@ public class LinkedNode {
       size = 0;
    }
 
+   LinkedNode mergeSort() {
+      if (root == null) return this;
+      Node tail = root;
+      while (tail.next != null) tail = tail.next;
+      root = mergeSort(root, tail);
+      return this;
+   }
+
+   // imp*
+   Node mergeSort(Node head, Node tail) {
+      if (head == tail) {
+         return new Node(head.data);
+      }
+      Node midNode = midNode(head, tail);
+
+      Node left = mergeSort(head, midNode);
+      Node right = mergeSort(midNode.next, tail);
+
+      return sortTwoSorted(left, right);
+   }
+
+   private Node sortTwoSorted(Node left, Node right) {
+      Node node = new Node();
+      Node head = node;
+      while (left != null && right != null) {
+         Node temp = new Node();
+         if (left.data < right.data) {
+            temp.data = left.data;
+            left = left.next;
+         } else {
+            temp.data = right.data;
+            right = right.next;
+         }
+         node.next = temp;
+         node = node.next;
+      }
+      if (left != null) sortTheHalf(node, left);
+      else if (right != null) sortTheHalf(node, right);
+      return head.next;
+   }
+
+   private Node midNode(Node head, Node tail) {
+      Node slow = head, fast = head;
+      while (fast != tail && fast.next != tail) {
+         slow = slow.next;
+         fast = fast.next.next;
+      }
+      return slow;
+   }
+
 
    LinkedNode sortTwoSortedList(LinkedNode linkedNode) {
       Node root2 = linkedNode.root;
@@ -40,7 +90,7 @@ public class LinkedNode {
             tempNode.data = root.data;
             root = root.next;
          }
-         nextNode = nextNode.next = tempNode;
+         nextNode.next = tempNode;
          nextNode = nextNode.next;
 //         nextNode = nextNode.next = tempNode; // this works too
       }
@@ -188,6 +238,7 @@ public class LinkedNode {
    }
 
    public LinkedNode addAlL(int... arr) {
+      if (arr.length == 0) return this;
       if (size == 0) {
          root = new Node(arr[0], null);
          size++;
