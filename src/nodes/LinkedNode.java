@@ -27,6 +27,32 @@ public class LinkedNode {
    }
 
 
+   LinkedNode sumOfTwoList(LinkedNode root2) {
+      int num1 = converter(root2.root);
+      int num2 = converter(root);
+      int sum = num1 + num2;
+      Node temp = null;
+      while (sum != 0) {
+         int num = sum % 10;
+         sum = sum / 10;
+         Node node = new Node(num);
+         node.next = temp;
+         temp = node;
+      }
+      root = temp;
+      return this;
+   }
+
+   private int converter(Node node) {
+      StringBuilder str = new StringBuilder();
+      while (node != null) {
+         str.append(node.data);
+         node = node.next;
+      }
+      return Integer.parseInt(str.toString());
+   }
+
+
    Node palindromeNode;
 
    boolean isPalindrome() {
