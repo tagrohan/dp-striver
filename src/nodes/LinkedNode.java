@@ -26,6 +26,63 @@ public class LinkedNode {
       size = 0;
    }
 
+   static int lastVal = -1;
+
+   int findInterSectionPointMain() {
+      Node n1 = new Node(1);
+      Node n2 = new Node(2, n1);
+      Node n3 = new Node(3, n2);
+      Node n4 = new Node(4, n3);
+      Node n5 = new Node(5, n4);
+      Node n6 = new Node(6, n5);
+      Node n7 = new Node(7, n6);
+
+      Node n14 = new Node(12, n3); // merge at n3
+      Node n13 = new Node(13, n14);
+      Node n12 = new Node(14, n13);
+      return findInterSectionPoint(n7, 7, n12, 5);
+
+   }
+
+   int findInterSectionPoint(Node n1, int n1Size, Node n2, int n2Size) {
+
+      if (n1 == null || n2 == null) return -1;
+
+      int call;
+      if (n1Size > n2Size) {
+         call = findInterSectionPoint(n1.next, n1Size - 1, n2, n2Size);
+      } else if (n2Size > n1Size) {
+         call = findInterSectionPoint(n1, n1Size, n2.next, n2Size - 1);
+      } else {
+         call = findInterSectionPoint(n1.next, n1Size - 1, n2.next, n2Size - 1);
+         if (n1.data == n2.data) lastVal = n1.data;
+         else return n1.data;
+      }
+      return call;
+   }
+
+//   Node toReturn = new Node();
+//   Node pointer = toReturn;
+//   Node temp;
+//
+//   LinkedNode foldList() {
+//      temp = root;
+//      foldAList(temp);
+//      root = pointer;
+//      return this;
+//   }
+//
+//
+//   private void foldAList(Node head) {
+//      if (head == null) return;
+//
+//      foldAList(head.next);
+//      Node n1 = new Node(root.data);
+//      n1.next = new Node(head.data);
+//      root = root.next;
+//      toReturn = n1;
+//      toReturn = toReturn.next.next;
+//   }
 
    LinkedNode sumOfTwoList(LinkedNode root2) {
       int num1 = converter(root2.root);
