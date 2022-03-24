@@ -26,6 +26,28 @@ public class LinkedNode {
       size = 0;
    }
 
+
+   Node palindromeNode;
+
+   boolean isPalindrome() {
+      palindromeNode = root;
+      return isPalindromeHelper(this.root);
+   }
+
+   private boolean isPalindromeHelper(Node root) {
+      if (root == null) return true;
+      boolean isPalindrome = isPalindromeHelper(root.next);
+      if (isPalindrome) {
+         if (root.data == palindromeNode.data) {
+            palindromeNode = palindromeNode.next;
+            return true;
+         } else
+            return false;
+      }
+      return false;
+   }
+
+
    void separateOddEven() { // odd first
       Node even = new Node();
       Node odd = new Node();
