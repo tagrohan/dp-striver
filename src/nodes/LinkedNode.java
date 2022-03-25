@@ -40,8 +40,27 @@ public class LinkedNode {
       Node n14 = new Node(12, n3); // merge at n3
       Node n13 = new Node(13, n14);
       Node n12 = new Node(14, n13);
-      return findInterSectionPoint(n7, 7, n12, 6);
+      return findInterSectionPointV2(n7, 7, n12, 6);
 
+   }
+
+   int findInterSectionPointV2(Node n1, int n1Size, Node n2, int n2Size) {
+      int diff = Math.abs(n1Size - n2Size);
+      if (n1Size > n2Size) n1 = meetTheLength(n1, diff);
+      else n2 = meetTheLength(n2, diff); // now lengths are equal
+      while (n1 != null && n2 != null) {
+         if (n1.data == n2.data) return n1.data;
+         n1 = n1.next;
+         n2 = n2.next;
+      }
+      return -1;
+   }
+
+   private Node meetTheLength(Node node, int size) {
+      for (int i = 0; i < size; i++) {
+         node = node.next;
+      }
+      return node;
    }
 
    int findInterSectionPoint(Node n1, int n1Size, Node n2, int n2Size) {
