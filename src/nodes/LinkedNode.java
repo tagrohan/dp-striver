@@ -1,6 +1,8 @@
 package nodes;
 
 
+import java.util.Stack;
+
 public class LinkedNode {
    private Node root;
    private int size;
@@ -25,6 +27,7 @@ public class LinkedNode {
    public LinkedNode() {
       size = 0;
    }
+
 
    static int lastVal = -1;
 
@@ -80,28 +83,30 @@ public class LinkedNode {
       return call;
    }
 
-//   Node toReturn = new Node();
-//   Node pointer = toReturn;
-//   Node temp;
-//
-//   LinkedNode foldList() {
-//      temp = root;
-//      foldAList(temp);
-//      root = pointer;
-//      return this;
-//   }
-//
-//
-//   private void foldAList(Node head) {
-//      if (head == null) return;
-//
-//      foldAList(head.next);
-//      Node n1 = new Node(root.data);
-//      n1.next = new Node(head.data);
-//      root = root.next;
-//      toReturn = n1;
-//      toReturn = toReturn.next.next;
-//   }
+   LinkedNode foldTheList() {
+      Node temp = root;
+      Stack<Node> stack = new Stack<>();
+      while (temp != null) {
+         stack.push(new Node(temp.data));
+         temp = temp.next;
+      }
+      boolean isOdd = stack.size() % 2 == 1;
+      Node temp2 = new Node();
+      Node head = temp2;
+      int size = stack.size() / 2;
+      while (size-- > 0) {
+         Node node = stack.pop();
+         Node n2 = new Node(root.data);
+         root = root.next;
+         n2.next = node;
+         temp2.next = n2;
+         temp2 = temp2.next.next;
+      }
+      if (isOdd) temp2.next = new Node(root.data);
+      root = head.next;
+      return this;
+   }
+
 
    LinkedNode sumOfTwoList(LinkedNode root2) {
       int num1 = converter(root2.root);
