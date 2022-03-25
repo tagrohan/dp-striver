@@ -40,7 +40,7 @@ public class LinkedNode {
       Node n14 = new Node(12, n3); // merge at n3
       Node n13 = new Node(13, n14);
       Node n12 = new Node(14, n13);
-      return findInterSectionPoint(n7, 7, n12, 5);
+      return findInterSectionPoint(n7, 7, n12, 6);
 
    }
 
@@ -56,7 +56,7 @@ public class LinkedNode {
       } else {
          call = findInterSectionPoint(n1.next, n1Size - 1, n2.next, n2Size - 1);
          if (n1.data == n2.data) lastVal = n1.data;
-         else return n1.data;
+         else return lastVal;
       }
       return call;
    }
