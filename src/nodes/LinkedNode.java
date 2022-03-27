@@ -29,6 +29,11 @@ public class LinkedNode {
    }
 
 
+//   LinkedNode reverseKOrder(int k) {
+//
+//   }
+
+
    static int lastVal = -1;
 
    int findInterSectionPointMain() {
@@ -82,6 +87,13 @@ public class LinkedNode {
       }
       return call;
    }
+
+
+//   LinkedNode foldTheListViaRecursion(){ // todo will do it after sometime
+
+//
+//   }
+
 
    LinkedNode foldTheList() {
       Node temp = root;
