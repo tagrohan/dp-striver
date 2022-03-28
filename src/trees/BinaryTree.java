@@ -1,6 +1,9 @@
 package trees;
 
+import java.util.Stack;
+
 public class BinaryTree {
+   private static Node root;
 
    static class Node {
       int data;
@@ -13,6 +16,7 @@ public class BinaryTree {
       }
    }
 
+   // states will be -1,0,1
    static class Pair {
       Node node;
       int state;
@@ -23,7 +27,58 @@ public class BinaryTree {
       }
    }
 
-   private void createTree(Integer[] arr) {
+   public static void main(String[] args) {
+      Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
+           null, null, null, 75, 62, null, 70, null, null, 87, null, null};
+      createTree(arr);
+      printRecursive(root);
+   }
+
+   //   Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
+//        null, null, null, 75, 62, null, 70, null, null, 57, null, null};
+   private static void createTree(Integer[] arr) {
+      Stack<Pair> stack = new Stack<>();
+      stack.push(new Pair(new Node(arr[0]), -1));
+      int index = 0;
+      root = stack.peek().node; // root here
+      while (!stack.isEmpty()) {
+         Pair pair = stack.peek();
+         if (pair.state == -1) {
+            index++;
+            pair.state += 1;
+            if (arr[index] == null) {
+               pair.node.left = null;
+               continue;
+            }// if null do nothing
+            Node node = new Node(arr[index]);
+            pair.node.left = node;
+            stack.push(new Pair(node, -1));
+         } else if (pair.state == 0) {
+            index++;
+            pair.state += 1;
+            if (arr[index] == null) {
+               pair.node.right = null;
+               continue;
+            }
+            Node node = new Node(arr[index]);
+            pair.node.right = node;
+            stack.push(new Pair(node, -1));
+         } else stack.pop();
+      }
+   }
+// todo will write this again by myself
+   private static void printRecursive(Node root) {
+      if (root == null) {
+         return;
+      }
+      String builder =
+           (root.left == null ? "" : root.left.data) + " <- " +
+                root.data + " -> " +
+                (root.right == null ? "" : root.right.data);
+      System.out.println(builder);
+
+      printRecursive(root.left);
+      printRecursive(root.right);
 
    }
 
