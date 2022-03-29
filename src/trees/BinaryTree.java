@@ -33,7 +33,15 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{1, 1, 1, null, null, 1, 1,
            null, null, null, 1, 1, null, 1, null, null, 1, null, null};
       createTree(arr);
-      System.out.println(sumOfAllNodes(root));
+      System.out.println(maxNode(root));
+   }
+
+   private static int maxNode(Node root) {
+      if (root == null) return Integer.MIN_VALUE;
+
+      int left = maxNode(root.left);
+      int right = maxNode(root.right);
+      return Integer.max(Integer.max(left, right), root.data); // same for min return max then here Integer.min();
    }
 
    private static int sumOfAllNodes(Node root) {
