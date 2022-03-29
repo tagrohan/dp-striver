@@ -31,7 +31,7 @@ public class BinaryTree {
       Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, null, 70, null, null, 87, null, null};
       createTree(arr);
-      printRecursive(root);
+      printRecursively(root);
    }
 
    //   Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
@@ -66,19 +66,15 @@ public class BinaryTree {
          } else stack.pop();
       }
    }
-// todo will write this again by myself
-   private static void printRecursive(Node root) {
-      if (root == null) {
-         return;
-      }
-      String builder =
-           (root.left == null ? "" : root.left.data) + " <- " +
-                root.data + " -> " +
-                (root.right == null ? "" : root.right.data);
-      System.out.println(builder);
 
-      printRecursive(root.left);
-      printRecursive(root.right);
+
+   private static void printRecursively(Node node) {
+      if (node == null) return;
+      String branches = (node.left != null ? node.left.data : "") + " <- " +
+           node.data + " -> " + (node.right != null ? node.right.data : "");
+      System.out.println(branches);
+      printRecursively(node.left);
+      printRecursively(node.right);
 
    }
 
