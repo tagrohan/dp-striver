@@ -39,14 +39,26 @@ public class BinaryTree {
    public static void main(String[] args) {
       Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, null, 70, null, null, 87, null, null};
-      Integer[] arr2 = new Integer[]{1, 1, 1, null, null, 1, 1,
-           null, null, null, 1, 1, null, 1, null, null, 1, null, null};
-      createTree(arr);
-      pathToLeafInRangeSum(root, 50, 260, 0, "");
+      Integer[] arr2 = new Integer[]{50, 25, 12, null, null, 37, 30,
+           null, null, null, 75, 62, 60, null, null, null, null};
+      createTree(arr2);
+      printSingleChild(root);
+   }
+
+
+   private static void printSingleChild(Node root) {
+      if (root == null) return;
+
+      if (root.left != null && root.right == null) System.out.println(root.left.data);
+      else if (root.right != null && root.left == null) System.out.println(root.right.data);
+
+      printSingleChild(root.left);
+      printSingleChild(root.right);
    }
 
    // to identify a leaf its left and right both are null
    private static void pathToLeafInRangeSum(Node root, int lowerBound, int upperBound, int sum, String psf) {
+//      pathToLeafInRangeSum(root, 50, 260, 0, "");
       if (root == null) return;
       if (root.left == null && root.right == null) {
          if (sum >= lowerBound && sum <= upperBound) {
