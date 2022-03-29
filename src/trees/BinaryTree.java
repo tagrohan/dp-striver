@@ -42,8 +42,19 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, 60, null, null, null, null};
       createTree(arr);
-      removeChild(root);
-      printRecursively(root);
+      Node nod = removeChildV2(root);
+      printRecursively(nod);
+   }
+
+   // working like a champ
+   private static Node removeChildV2(Node root) {
+      if (root == null) return null;
+
+      if (root.left == null && root.right == null) return null;
+
+      root.left = removeChildV2(root.left);
+      root.right = removeChildV2(root.right);
+      return root;
    }
 
    // will have one above that return Node
