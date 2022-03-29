@@ -42,9 +42,21 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{1, 1, 1, null, null, 1, 1,
            null, null, null, 1, 1, null, 1, null, null, 1, null, null};
       createTree(arr);
-      printKLevelDownRec(root, 2);
+      pathToLeafInRangeSum(root, 50, 260, 0, "");
    }
 
+   // to identify a leaf its left and right both are null
+   private static void pathToLeafInRangeSum(Node root, int lowerBound, int upperBound, int sum, String psf) {
+      if (root == null) return;
+      if (root.left == null && root.right == null) {
+         if (sum >= lowerBound && sum <= upperBound) {
+            System.out.println(psf + root.data);
+         }
+      }
+
+      pathToLeafInRangeSum(root.left, lowerBound, upperBound, root.data + sum, psf + root.data + " ");
+      pathToLeafInRangeSum(root.right, lowerBound, upperBound, root.data + sum, psf + root.data + " ");
+   }
 
    private static void printKLevelDownRec(Node root, int k) {
       if (root == null || k < 0) return;
