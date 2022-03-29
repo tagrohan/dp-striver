@@ -42,10 +42,19 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{1, 1, 1, null, null, 1, 1,
            null, null, null, 1, 1, null, 1, null, null, 1, null, null};
       createTree(arr);
-      printKLevelDown(root, 3);
+      printKLevelDownRec(root, 2);
    }
 
-// it's an O(N) algo
+
+   private static void printKLevelDownRec(Node root, int k) {
+      if (root == null || k < 0) return;
+      if (k == 0) System.out.println(root.data);
+
+      printKLevelDownRec(root.left, k - 1);
+      printKLevelDownRec(root.right, k - 1);
+   }
+
+   // it's an O(N) algo
    private static void printKLevelDown(Node root, int k) {
       int level = 1;
       Queue<Node> queue = new ArrayDeque<>();
