@@ -33,7 +33,20 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{1, 1, 1, null, null, 1, 1,
            null, null, null, 1, 1, null, 1, null, null, 1, null, null};
       createTree(arr);
-      System.out.println(heightOfTree(root, 0));
+      nodeToRootPath(root, 70);
+   }
+
+
+   private static boolean nodeToRootPath(Node root, int key) {
+      if (root == null) return false;
+      if (root.data == key) {
+         System.out.println(root.data);
+         return true;
+      }
+      boolean left = nodeToRootPath(root.left, key);
+      boolean right = nodeToRootPath(root.right, key);
+      if (left || right) System.out.println(root.data + " ");
+      return left || right;
    }
 
    private static int heightOfTree(Node root, int height) {
