@@ -33,7 +33,19 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{1, 1, 1, null, null, 1, 1,
            null, null, null, 1, 1, null, 1, null, null, 1, null, null};
       createTree(arr);
-      System.out.println(maxNode(root));
+      System.out.println(heightOfTree(root, 0));
+   }
+
+   private static int heightOfTree(Node root, int height) {
+      if (root == null) return -1; // bcz we are considering vertices as height here
+      int left = heightOfTree(root.left, height + 1);
+      int right = heightOfTree(root.right, height + 1);
+      return Integer.max(left, right) + 1;
+   }
+
+   private static int size(Node root) {
+      if (root == null) return 0;
+      return size(root.left) + size(root.right) + 1;
    }
 
    private static int maxNode(Node root) {
