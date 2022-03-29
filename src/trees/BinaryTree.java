@@ -1,5 +1,7 @@
 package trees;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTree {
@@ -13,6 +15,13 @@ public class BinaryTree {
       public Node(int data) {
          this.data = data;
          this.right = this.left = null;
+      }
+
+      @Override
+      public String toString() {
+         return "Node{" +
+              "data=" + data +
+              '}';
       }
    }
 
@@ -33,9 +42,24 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{1, 1, 1, null, null, 1, 1,
            null, null, null, 1, 1, null, 1, null, null, 1, null, null};
       createTree(arr);
-      nodeToRootPath(root, 70);
+      printKLevelDown(root, 3);
    }
 
+// it's an O(N) algo
+   private static void printKLevelDown(Node root, int k) {
+      int level = 1;
+      Queue<Node> queue = new ArrayDeque<>();
+      queue.add(root);
+      while (level++ <= k) {
+         int size = queue.size();
+         while (size-- > 0) {
+            Node node = queue.remove();
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+         }
+      }
+      queue.forEach(System.out::println);
+   }
 
    private static boolean nodeToRootPath(Node root, int key) {
       if (root == null) return false;
