@@ -31,7 +31,7 @@ public class BinaryTree {
       Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, null, 70, null, null, 87, null, null};
       createTree(arr);
-      printRecursively(root);
+      print(root);
    }
 
    //   Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
@@ -78,4 +78,21 @@ public class BinaryTree {
 
    }
 
+   private static void print(Node root) {
+      Stack<Node> stack = new Stack<>();
+      stack.push(root);
+      while (!stack.isEmpty()) {
+         Node node = stack.pop();
+         String branches = node.data + "";
+         if (node.right != null) {
+            stack.push(node.right);
+            branches = branches + "->" + node.right.data;
+         } else branches = branches + "->";
+         if (node.left != null) {
+            stack.push(node.left);
+            branches = node.left.data + "<-" + branches;
+         } else branches = "<-" + branches;
+         System.out.println(branches);
+      }
+   }
 }
