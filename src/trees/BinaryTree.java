@@ -41,10 +41,24 @@ public class BinaryTree {
            null, null, null, 75, 62, null, 70, null, null, 87, null, null};
       Integer[] arr2 = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, 60, null, null, null, null};
-      createTree(arr2);
-      printSingleChild(root);
+      createTree(arr);
+      removeChild(root);
+      printRecursively(root);
    }
 
+   // will have one above that return Node
+   private static void removeChild(Node root) {
+      if (root == null) return;
+      if (root.left != null) {
+         if (root.left.left == null && root.left.right == null) root.left = null;
+      }
+      if (root.right != null) {
+         if (root.right.left == null && root.right.right == null) root.right = null;
+      }
+
+      removeChild(root.left);
+      removeChild(root.right);
+   }
 
    private static void printSingleChild(Node root) {
       if (root == null) return;
