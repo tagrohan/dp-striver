@@ -1,8 +1,6 @@
 package trees;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTree {
    private static Node root;
@@ -42,8 +40,38 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, 60, null, null, null, null};
       createTree(arr);
-      Node nod = removeChildV2(root);
-      printRecursively(nod);
+      printKFarNode(root, 37, 2);
+   }
+
+   private static void printKFarNode(Node root, int data, int k) {
+      List<Node> getPathToRoot = getPathToRoot(root, data);
+      for (int i = 0; i < getPathToRoot.size(); i++) {
+         printKLevelDownWithBlocker(getPathToRoot.get(i), k - i, i == 0 ? null : getPathToRoot.get(i - 1));
+      }
+   }
+
+   private static void printKLevelDownWithBlocker(Node root, int k, Node blocker) {
+      if (root == null || k < 0 || root == blocker) return;
+      if (k == 0) System.out.print(root.data + " ");
+
+      printKLevelDownWithBlocker(root.left, k - 1, blocker);
+      printKLevelDownWithBlocker(root.right, k - 1, blocker);
+   }
+
+   private static List<Node> getPathToRoot(Node root, int data) {
+      if (root == null) return List.of();
+      if (root.data == data) {
+         List<Node> pathList = new ArrayList<>();
+         pathList.add(root);
+         return pathList;
+      }
+
+      List<Node> left = getPathToRoot(root.left, data);
+      List<Node> right = getPathToRoot(root.right, data);
+      if (left.size() > 0) left.add(root);
+      if (right.size() > 0) right.add(root);
+
+      return left.size() > 0 ? left : right;
    }
 
    // working like a champ
