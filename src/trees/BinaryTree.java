@@ -40,7 +40,17 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{50, 20, 10, null, null, 30, null, null, 60, 55, null, null, 70, null, null};
       createTree(arr2);
       transformToALeftClonedTree(root);
+      transformBackToNormalFromLeftCloned(root);
       print(root);
+   }
+
+   private static void transformBackToNormalFromLeftCloned(Node root) {
+      if (root == null) return;
+      root.left = root.left.left;
+
+      transformBackToNormalFromLeftCloned(root.left);
+      transformBackToNormalFromLeftCloned(root.right);
+
    }
 
    private static void transformToALeftClonedTree(Node root) {
