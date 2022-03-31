@@ -37,10 +37,21 @@ public class BinaryTree {
    public static void main(String[] args) {
       Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, null, 70, null, null, 87, null, null};
-      Integer[] arr2 = new Integer[]{50, 25, 12, null, null, 37, 30,
-           null, null, null, 75, 62, 60, null, null, null, null};
-      createTree(arr);
-      printKFarNode(root, 37, 0);// todo: little bug at k = 0
+      Integer[] arr2 = new Integer[]{50, 20, 10, null, null, 30, null, null, 60, 55, null, null, 70, null, null};
+      createTree(arr2);
+      transformToALeftClonedTree(root);
+      print(root);
+   }
+
+   private static void transformToALeftClonedTree(Node root) {
+      if (root == null) return;
+
+      Node temp = root.left;
+      root.left = new Node(root.data);
+      root.left.left = temp;
+
+      transformToALeftClonedTree(root.left.left);
+      transformToALeftClonedTree(root.right);
    }
 
    private static void printKFarNode(Node root, int data, int k) {
