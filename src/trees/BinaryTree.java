@@ -40,13 +40,13 @@ public class BinaryTree {
       Integer[] arr2 = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, 60, null, null, null, null};
       createTree(arr);
-      printKFarNode(root, 37, 2);
+      printKFarNode(root, 37, 0);// todo: little bug at k = 0
    }
 
    private static void printKFarNode(Node root, int data, int k) {
       List<Node> getPathToRoot = getPathToRoot(root, data);
       for (int i = 0; i < getPathToRoot.size(); i++) {
-         printKLevelDownWithBlocker(getPathToRoot.get(i), k - i, i == 0 ? null : getPathToRoot.get(i - 1));
+         printKLvlDownV2(getPathToRoot.get(i), k - i, i == 0 ? null : getPathToRoot.get(i - 1));
       }
    }
 
@@ -56,6 +56,20 @@ public class BinaryTree {
 
       printKLevelDownWithBlocker(root.left, k - 1, blocker);
       printKLevelDownWithBlocker(root.right, k - 1, blocker);
+   }
+
+   private static void printKLvlDownV2(Node root, int k, Node blocker) {
+      Queue<Node> queue = new ArrayDeque<>();
+      queue.add(root);
+      while (k-- >= 0) {
+         int size = queue.size();
+         for (int i = 0; i < size; i++) {
+            Node node = queue.remove();
+            if (node.left != null && node.left != blocker) queue.add(node.left);
+            if (node.right != null && node.right != blocker) queue.add(node.right);
+         }
+         queue.forEach(System.out::println);
+      }
    }
 
    private static List<Node> getPathToRoot(Node root, int data) {
