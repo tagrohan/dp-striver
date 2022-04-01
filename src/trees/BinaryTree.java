@@ -38,10 +38,22 @@ public class BinaryTree {
       Integer[] arr = new Integer[]{50, 25, 12, null, null, 37, 30,
            null, null, null, 75, 62, null, 70, null, null, 87, null, null};
       Integer[] arr2 = new Integer[]{50, 20, 10, null, null, 30, null, null, 60, 55, null, null, 70, null, null};
-      createTree(arr2);
-      transformToALeftClonedTree(root);
-      transformBackToNormalFromLeftCloned(root);
-      print(root);
+      createTree(arr);
+      System.out.println(diameterOfTree(root));
+   }
+// time complexity is O(n^2)
+   private static int diameterOfTree(Node root) {
+      if (root == null) return 0;
+
+      int maxLeft = maxLen(root.left);
+      int maxRight = maxLen((root.right));
+      int height = maxLeft + maxRight + 2;
+      return Integer.max(height, Integer.max(maxLeft, maxRight));
+   }
+
+   private static int maxLen(Node root) {
+      if (root == null) return -1;
+      return Integer.max(maxLen(root.left), maxLen(root.right)) + 1;
    }
 
    private static void transformBackToNormalFromLeftCloned(Node root) {
@@ -194,10 +206,10 @@ public class BinaryTree {
       return left || right;
    }
 
-   private static int heightOfTree(Node root, int height) {
+   private static int heightOfTree(Node root) {
       if (root == null) return -1; // bcz we are considering vertices as height here
-      int left = heightOfTree(root.left, height + 1);
-      int right = heightOfTree(root.right, height + 1);
+      int left = heightOfTree(root.left);
+      int right = heightOfTree(root.right);
       return Integer.max(left, right) + 1;
    }
 
