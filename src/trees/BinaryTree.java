@@ -39,9 +39,40 @@ public class BinaryTree {
            null, null, null, 75, 62, null, 70, null, null, 87, null, null};
       Integer[] arr2 = new Integer[]{50, 20, 10, null, null, 30, null, null, 60, 55, null, null, 70, null, null};
       createTree(arr);
-      System.out.println(diameterOfTree(root));
+      System.out.println(isBst(root).isValidTill);
    }
-// time complexity is O(n^2) todo it has some issue
+
+   private static class BstPair {
+      int min;
+      int max;
+      boolean isValidTill;
+
+   }
+
+
+   private static BstPair isBst(Node root) {
+      if (root == null) {
+         BstPair pair = new BstPair();
+         pair.max = Integer.MIN_VALUE;
+         pair.min = Integer.MAX_VALUE;
+         pair.isValidTill = true;
+         return pair;
+      }
+
+
+      BstPair left = isBst(root.left);
+      BstPair right = isBst(root.right);
+
+      BstPair pair = new BstPair();
+      pair.isValidTill = left.isValidTill && right.isValidTill && (root.data > left.max && root.data < right.min);
+
+      pair.min = Integer.min(root.data, Integer.min(left.min, right.min));
+      pair.max = Integer.max(root.data, Integer.min(left.max, right.max));
+      return pair;
+   }
+
+
+   // time complexity is O(n^2) todo it has some issue
    private static int diameterOfTree(Node root) {
       if (root == null) return 0;
 
