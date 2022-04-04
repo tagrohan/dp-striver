@@ -39,7 +39,13 @@ public class BinaryTree {
            null, null, null, 75, 62, null, 70, null, null, 87, null, null};
       Integer[] arr2 = new Integer[]{50, 20, 10, null, null, 30, null, null, 60, 55, null, null, 70, null, null};
       createTree(arr);
-      System.out.println(isBst(root).isValidTill);
+      System.out.println(isBstV2(root, Integer.MAX_VALUE, Integer.MIN_VALUE));
+   }
+
+   private static boolean isBstV2(Node root, int lower, int upper) {
+      if (root == null) return true;
+      if (root.data > lower || root.data < upper) return false;
+      return isBstV2(root.left, root.data, upper) && isBstV2(root.right, lower, root.data);
    }
 
    private static class BstPair {
