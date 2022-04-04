@@ -41,7 +41,7 @@ public class BinaryTree {
       createTree(arr);
       System.out.println(diameterOfTree(root));
    }
-// time complexity is O(n^2)
+// time complexity is O(n^2) todo it has some issue
    private static int diameterOfTree(Node root) {
       if (root == null) return 0;
 
