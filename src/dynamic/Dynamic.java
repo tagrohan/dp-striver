@@ -7,7 +7,7 @@ public class Dynamic {
     }
 
     // using dp
-    public static int fab(int range, int[] dp){
+    public static int fab(int range, int[] dp) {
         return -1;
     }
 }
