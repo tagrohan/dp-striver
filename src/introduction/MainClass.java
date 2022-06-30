@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class MainClass {
     public static void main(String[] args) {
         System.out.println("working..");
-        printDeCInc(5);
+        TOH(11, 12, 13, 3);
     }
 
     private static int[] findAllIndex(int[] arr, int index, int noOfElementFound, int element) {
@@ -25,5 +25,15 @@ public class MainClass {
         System.out.println(n);
         printDeCInc(n - 1);
         System.out.println(n);
+    }
+
+    private static void TOH(int s, int d, int h, int n) {
+        if (n == 1) {
+            System.out.println(s + " " + "-->" + "" + d);
+            return;
+        }
+        TOH(s, h, d, n - 1);
+        System.out.println(s + " " + "-->" + "" + d);
+        TOH(h, d, s, n - 1);
     }
 }
