@@ -1,11 +1,40 @@
 package introduction;
 
-import java.util.Arrays;
-
 public class MainClass {
    public static void main(String[] args) {
-      System.out.println("working..");
+      char[][] arr = {
+           {'A','B','C','E'},
+           {'S','F','C','S'},
+           {'A','D','E','E'}};
+      System.out.println(exist(arr,"ABCCED"));
+      System.out.println(arr.length +" "+arr[0].length);
+   }
 
+   private static boolean isExist = false;
+   private static boolean exist(char[][] arr, String str){
+      int[][] visited = new int[arr.length][arr[0].length];
+      existHelp(arr,str,visited,0,0);
+      return isExist;
+   }
+
+   private static void existHelp(char[][] arr, String str, int[][] visited, int currentRow, int currentCol){
+      if(str.length() == 0) {
+         isExist = true;
+         return ;
+      }
+      if(currentRow < 0 || currentCol < 0|| currentRow >= arr.length || currentCol >= arr[0].length ||
+           visited[currentRow][currentCol] == 1) return; // if(ch == arr[currentRow][currentCol]) str = str.substring(1); // todo will do later for sure
+      char ch = str.charAt(0);
+
+      visited[currentRow][currentCol] = 1;
+      if(ch == arr[currentRow][currentCol]) str = str.substring(1);
+
+         existHelp(arr, str, visited, currentRow - 1, currentCol);
+         existHelp(arr, str, visited, currentRow, currentCol + 1);
+         existHelp(arr, str, visited, currentRow + 1, currentCol);
+         existHelp(arr, str, visited, currentRow, currentCol - 1);
+
+      visited[currentRow][currentCol] = 0;
    }
 
    private static void printCombination(String str, String ssf) {
