@@ -16,7 +16,7 @@ public class Graph {
         adL.add(6, List.of(1, 7, 8));
         adL.add(7, List.of(5, 6, 8));
         adL.add(8, List.of(6));
-        System.out.println(Arrays.toString(BFS(adL).toArray()));
+        System.out.println(Arrays.toString(DFS(adL).toArray()));
     }
 
     private static List<Integer> DFS(List<List<Integer>> adL) {
@@ -31,7 +31,10 @@ public class Graph {
         visited[index] = true;
         list.add(index);
         for (Integer in : adL.get(index)) {
-
+            if (!visited[in]) {
+                visited[in] = true;
+                DFSHelper(adL, list, visited, in);
+            }
         }
 
     }
