@@ -19,7 +19,25 @@ public class Graph {
         System.out.println(Arrays.toString(BFS(adL).toArray()));
     }
 
-    private static List<Integer> BFS(List<List<Integer>> adL) { // adL adjecency list
+    private static List<Integer> DFS(List<List<Integer>> adL) {
+        List<Integer> list = new ArrayList<>();
+        boolean[] visited = new boolean[adL.size()];
+        DFSHelper(adL, list, visited, 1);
+        return list;
+    }
+
+    private static void DFSHelper(List<List<Integer>> adL, List<Integer> list, boolean[] visited, int index) {
+
+        visited[index] = true;
+        list.add(index);
+        for (Integer in : adL.get(index)) {
+
+        }
+
+    }
+
+
+    private static List<Integer> BFS(List<List<Integer>> adL) { // adL adjacency list
         Queue<Integer> queue = new ArrayDeque<>();
         List<Integer> list = new ArrayList<>();
         boolean[] visited = new boolean[adL.size()];
