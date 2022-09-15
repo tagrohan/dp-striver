@@ -2,21 +2,48 @@ package graph;
 
 import java.util.*;
 
+import static graph.Graph.hover;
+
 public class Graph {
 
     public static void main(String[] args) {
         List<List<Integer>> adL = new ArrayList<>();
         for (int i = 0; i < 9; i++) adL.add(new ArrayList<>());
 
-        adL.add(1, List.of(2, 6));
-        adL.add(2, List.of(1, 3, 4));
+        adL.add(1, List.of(2));
+        adL.add(2, List.of(1, 3));
         adL.add(3, List.of(2));
-        adL.add(4, List.of(2, 5));
-        adL.add(5, List.of(4, 7));
-        adL.add(6, List.of(1, 7, 8));
-        adL.add(7, List.of(5, 6, 8));
-        adL.add(8, List.of(6));
-        System.out.println(Arrays.toString(DFS(adL).toArray()));
+        adL.add(4, List.of(5, 7));
+        adL.add(5, List.of(4, 6));
+        adL.add(6, List.of(5, 7));
+        adL.add(7, List.of(4, 6));
+        adL.add(8, List.of(9));
+        adL.add(9, List.of(8, 10));
+        adL.add(10, List.of(9));
+        System.out.println(noOfProvinces(adL, 10));
+    }
+
+    private static int noOfProvinces(List<List<Integer>> adl, int len) {
+        boolean[] visited = new boolean[adl.size()];
+        int counter = 0;
+        for (int i = 1; i <= len; i++) {
+            if (!visited[i]) {
+                counter++;
+                hover(adl, i, visited);
+            }
+        }
+        return counter;
+    }
+
+    private static void hover(List<List<Integer>> adl, int i, boolean[] visited) {
+        visited[i] = true;
+
+        for (Integer in : adl.get(i)) {
+            if (!visited[in]) {
+                visited[in] = true;
+                hover(adl, in, visited);
+            }
+        }
     }
 
     private static List<Integer> DFS(List<List<Integer>> adL) {
@@ -61,3 +88,11 @@ public class Graph {
         return list;
     }
 }
+//adL.add(1, List.of(2, 6));
+//        adL.add(2, List.of(1, 3, 4));
+//        adL.add(3, List.of(2));
+//        adL.add(4, List.of(2, 5));
+//        adL.add(5, List.of(4, 7));
+//        adL.add(6, List.of(1, 7, 8));
+//        adL.add(7, List.of(5, 6, 8));
+//        adL.add(8, List.of(6));
