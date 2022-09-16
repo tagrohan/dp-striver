@@ -42,10 +42,17 @@ public class Graph {
         if (i >= arr.length || i < 0 || j >= arr[i].length || j < 0 || visited[i][j] || arr[i][j] == 0) return;
 
         visited[i][j] = true;
-        dfsForIsland(visited, arr, i, j + 1); // right
-        dfsForIsland(visited, arr, i + 1, j); // down
-        dfsForIsland(visited, arr, i, j - 1); // left
-        dfsForIsland(visited, arr, i - 1, j); // top
+
+        int[] ith = {0, 1, 0, -1};
+        int[] jth = {1, 0, -1, 0};
+
+        for (int k = 0; k < 4; k++) dfsForIsland(visited, arr, i + ith[k], j + jth[k]);
+
+
+//        dfsForIsland(visited, arr, i, j + 1); // right
+//        dfsForIsland(visited, arr, i + 1, j); // down
+//        dfsForIsland(visited, arr, i, j - 1); // left
+//        dfsForIsland(visited, arr, i - 1, j); // top
     }
 
     private static int noOfProvincesV2(List<List<Integer>> adl, int len) {
