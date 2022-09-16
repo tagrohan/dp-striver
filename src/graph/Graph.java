@@ -2,8 +2,6 @@ package graph;
 
 import java.util.*;
 
-import static graph.Graph.hover;
-
 public class Graph {
 
     public static void main(String[] args) {
@@ -20,7 +18,33 @@ public class Graph {
         adL.add(8, List.of(9));
         adL.add(9, List.of(8, 10));
         adL.add(10, List.of(9));
-        System.out.println(noOfProvinces(adL, 10));
+        System.out.println(noOfProvincesV2(adL, 10));
+    }
+
+    private static int noOfProvincesV2(List<List<Integer>> adl, int len) {
+        boolean[] visited = new boolean[adl.size()];
+        int counter = 0;
+        for (int i = 1; i <= 10; i++) {
+            if (!visited[i]) {
+                counter += 1;
+                DFSV2(adl, i, visited);
+            }
+        }
+        return counter;
+    }
+
+    private static void DFSV2(List<List<Integer>> adl, int i, boolean[] visited) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(i);
+        while (!stack.isEmpty()) {
+            int index = stack.pop();
+            for (Integer in : adl.get(index)) {
+                if (!visited[in]) {
+                    visited[in] = true;
+                    stack.push(in);
+                }
+            }
+        }
     }
 
     private static int noOfProvinces(List<List<Integer>> adl, int len) {
