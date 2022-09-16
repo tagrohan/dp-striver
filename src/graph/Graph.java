@@ -5,23 +5,66 @@ import java.util.*;
 public class Graph {
 
     public static void main(String[] args) {
-        List<List<Integer>> adL = new ArrayList<>();
-        for (int i = 0; i < 9; i++) adL.add(new ArrayList<>());
+        int[][] arr = {
+                {0, 1, 1, 0},
+                {0, 1, 1, 0},
+                {1, 0, 0, 0},
+                {0, 0, 0, 0},
+                {1, 1, 0, 1}};
+        System.out.println(noOfIslands(arr));
+    }
 
-        adL.add(1, List.of(2));
-        adL.add(2, List.of(1, 3));
-        adL.add(3, List.of(2));
-        adL.add(4, List.of(5, 7));
-        adL.add(5, List.of(4, 6));
-        adL.add(6, List.of(5, 7));
-        adL.add(7, List.of(4, 6));
-        adL.add(8, List.of(9));
-        adL.add(9, List.of(8, 10));
-        adL.add(10, List.of(9));
-        System.out.println(noOfProvincesV2(adL, 10));
+    private static int noOfIslands(int[][] arr) {
+
+//        int[][] arr = {
+//                {0, 1, 1, 0},
+//                {0, 1, 1, 0},
+//                {1, 0, 0, 0},
+//                {0, 0, 0, 0},
+//                {1, 1, 0, 1}};
+//        System.out.println(noOfIslands(arr));
+
+        boolean[][] visited = new boolean[arr.length][arr[0].length];
+        int noOFIsland = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (!visited[i][j] && arr[i][j] != 0) {
+                    noOFIsland += 1;
+                    dfsForIsland(visited, arr, i, j);
+                }
+            }
+        }
+        return noOFIsland;
+    }
+
+    private static void dfsForIsland(boolean[][] visited, int[][] arr, int i, int j) {
+
+        if (i >= arr.length || i < 0 || j >= arr[i].length || j < 0 || visited[i][j] || arr[i][j] == 0) return;
+
+        visited[i][j] = true;
+        dfsForIsland(visited, arr, i, j + 1); // right
+        dfsForIsland(visited, arr, i + 1, j); // down
+        dfsForIsland(visited, arr, i, j - 1); // left
+        dfsForIsland(visited, arr, i - 1, j); // top
     }
 
     private static int noOfProvincesV2(List<List<Integer>> adl, int len) {
+
+//        List<List<Integer>> adL = new ArrayList<>();
+//        for (int i = 0; i < 9; i++) adL.add(new ArrayList<>());
+//
+//        adL.add(1, List.of(2));
+//        adL.add(2, List.of(1, 3));
+//        adL.add(3, List.of(2));
+//        adL.add(4, List.of(5, 7));
+//        adL.add(5, List.of(4, 6));
+//        adL.add(6, List.of(5, 7));
+//        adL.add(7, List.of(4, 6));
+//        adL.add(8, List.of(9));
+//        adL.add(9, List.of(8, 10));
+//        adL.add(10, List.of(9));
+//        System.out.println(noOfProvincesV2(adL, 10));
+
         boolean[] visited = new boolean[adl.size()];
         int counter = 0;
         for (int i = 1; i <= 10; i++) {
