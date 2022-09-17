@@ -6,12 +6,41 @@ public class Graph {
 
     public static void main(String[] args) {
         int[][] arr = {
-                {0, 1, 1, 0},
-                {0, 1, 1, 0},
-                {1, 0, 0, 0},
-                {0, 0, 0, 0},
-                {1, 1, 0, 1}};
-        System.out.println(noOfIslands(arr));
+                {3, 1, 1},
+                {3, 1, 0},
+                {1, 0, 1}};
+
+        for (int[] row : floodFill(arr, 1, 1, 2)) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
+
+    private static int[][] floodFill(int[][] arr, int i, int j, int newColor) {
+        int[][] visited = new int[arr.length][arr[0].length];
+        for (int k = 0; k < arr.length; k++) {
+            System.arraycopy(arr[k], 0, visited[k], 0, arr[k].length);
+        }
+        floodFillHelper(arr, i, j, visited, newColor, arr[i][j]);
+        return visited;
+    }
+
+    private static void floodFillHelper(int[][] arr, int i, int j, int[][] visited, int newColor, int prevColor) {
+        if (i >= arr.length || i < 0 || j >= arr[i].length || j < 0 || visited[i][j] == newColor || arr[i][j] != prevColor)
+            return;
+
+        visited[i][j] = newColor;
+
+        int[] ith = {0, 1, 0, -1};
+        int[] jth = {1, 0, -1, 0};
+
+        for (int k = 0; k < ith.length; k++) {
+            floodFillHelper(arr, i + ith[k], j + jth[k], visited, newColor, prevColor);
+        }
+
+//        floodFillHelper(arr, i, j + 1, visited, newColor, prevColor); // right
+//        floodFillHelper(arr, i + 1, j, visited, newColor, prevColor); // down
+//        floodFillHelper(arr, i, j - 1, visited, newColor, prevColor);// left
+//        floodFillHelper(arr, i - 1, j, visited, newColor, prevColor); // up
     }
 
     private static int noOfIslands(int[][] arr) {
