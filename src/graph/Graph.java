@@ -5,17 +5,20 @@ import java.util.*;
 public class Graph {
 
     public static void main(String[] args) {
-        int[][] arr = {
-                {3, 1, 1},
-                {3, 1, 0},
-                {1, 0, 1}};
-
-        for (int[] row : floodFill(arr, 1, 1, 2)) {
-            System.out.println(Arrays.toString(row));
-        }
+        
     }
 
     private static int[][] floodFill(int[][] arr, int i, int j, int newColor) {
+
+//        int[][] arr = {
+//                {3, 1, 1},
+//                {3, 1, 0},
+//                {1, 0, 1}};
+//
+//        for (int[] row : floodFill(arr, 1, 1, 2)) {
+//            System.out.println(Arrays.toString(row));
+//        }
+
         int[][] visited = new int[arr.length][arr[0].length];
         for (int k = 0; k < arr.length; k++) {
             System.arraycopy(arr[k], 0, visited[k], 0, arr[k].length);
@@ -30,7 +33,7 @@ public class Graph {
 
         visited[i][j] = newColor;
 
-        int[] ith = {0, 1, 0, -1};
+        int[] ith = {0, 1, 0, -1}; // next time pass from parent caller
         int[] jth = {1, 0, -1, 0};
 
         for (int k = 0; k < ith.length; k++) {
