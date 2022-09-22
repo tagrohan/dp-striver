@@ -4,8 +4,53 @@ import java.util.*;
 
 public class Graph {
 
+    public static class Pair {
+        public int val;
+        public int time;
+        public int i;
+        public int j;
+
+        public Pair(int val, int time, int i, int j) {
+            this.val = val;
+            this.time = time;
+            this.i = i;
+            this.j = j;
+        }
+
+        public Pair() {
+        }
+    }
+
     public static void main(String[] args) {
-        
+        int[][] arr = {
+                {2, 1, 1},
+                {1, 1, 0},
+                {0, 1, 1}};
+        System.out.println(rottenOranges(arr, 0, 0));
+    }
+
+
+    private static int rottenOranges(int[][] arr, int i, int j) {
+        int timeTaken = 0;
+        int[][] vis = new int[arr.length][arr[0].length];
+        System.arraycopy(arr, 0, vis, 0, arr.length);
+        Queue<Pair> queue = new ArrayDeque<>();
+        queue.add(new Pair(vis[i][j], 0, i, j));
+        while (!queue.isEmpty()) {
+            Pair p = queue.poll();
+            int[] ith = {0, -1, 0, 1};
+            int[] jth = {1, 0, -1, 0};
+            for (int k = 0; k < ith.length; k++) {
+                if (p.i + ith[k] < 0 || p.i + ith[k] >= arr.length || p.j + jth[k] < 0 || p.j + jth[k] >= arr[0].length || vis[p.i + ith[k]][p.j + jth[k]] == 2)
+                    continue;
+                vis[p.i + ith[k]][p.j + jth[k]] = 2;
+                queue.add(new Pair(arr[p.i + ith[k]][p.j + jth[k]], p.time + 1, p.i + ith[k], p.j + jth[k]));
+            }
+
+        }
+
+
+        return timeTaken;
     }
 
     private static int[][] floodFill(int[][] arr, int i, int j, int newColor) {
@@ -20,9 +65,8 @@ public class Graph {
 //        }
 
         int[][] visited = new int[arr.length][arr[0].length];
-        for (int k = 0; k < arr.length; k++) {
-            System.arraycopy(arr[k], 0, visited[k], 0, arr[k].length);
-        }
+        System.arraycopy(arr, 0, visited, 0, arr.length);
+
         floodFillHelper(arr, i, j, visited, newColor, arr[i][j]);
         return visited;
     }
