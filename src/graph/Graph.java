@@ -30,7 +30,7 @@ public class Graph {
     }
 
 
-    private static int rottenOranges(int[][] arr, int i, int j) {
+    private static int rottenOranges(int[][] arr, int i, int j) { // todo : will start from sunday
         int timeTaken = 0;
         int[][] vis = new int[arr.length][arr[0].length];
         System.arraycopy(arr, 0, vis, 0, arr.length);
