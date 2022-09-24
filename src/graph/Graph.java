@@ -34,8 +34,7 @@ public class Graph {
         int timeTaken = 0;                                                                          //{2, 1, 1},
         int[][] vis = new int[arr.length][arr[0].length];                                           //{1, 1, 0}
         System.arraycopy(arr, 0, vis, 0, arr.length);                                // {0, 2, 1}};
-        Queue<Pair> queue = new ArrayDeque<>();
-        queue.add(new Pair(vis[i][j], 0, i, j));
+        Queue<Pair> queue = getFilledQueue(arr);
         while (!queue.isEmpty()) {
             Pair p = queue.poll();
             int[] ith = {0, -1, 0, 1};
@@ -50,6 +49,16 @@ public class Graph {
         }
 
         return timeTaken;
+    }
+
+    private static Queue<Pair> getFilledQueue(int[][] arr) {
+        Queue<Pair> queue = new ArrayDeque<>();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] == 2) queue.add(new Pair(2, 0, i, j));
+            }
+        }
+        return queue;
     }
 
     private static int[][] floodFill(int[][] arr, int i, int j, int newColor) {
