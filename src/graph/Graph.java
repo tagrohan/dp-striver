@@ -30,25 +30,24 @@ public class Graph {
     }
 
 
-    private static int rottenOranges(int[][] arr, int i, int j) {
-        int timeTaken = 0;
-        int[][] vis = new int[arr.length][arr[0].length];
-        System.arraycopy(arr, 0, vis, 0, arr.length);
+    private static int rottenOranges(int[][] arr, int i, int j) { // in case of multiple 2's we can pass them initially
+        int timeTaken = 0;                                                                          //{2, 1, 1},
+        int[][] vis = new int[arr.length][arr[0].length];                                           //{1, 1, 0}
+        System.arraycopy(arr, 0, vis, 0, arr.length);                                // {0, 2, 1}};
         Queue<Pair> queue = new ArrayDeque<>();
         queue.add(new Pair(vis[i][j], 0, i, j));
         while (!queue.isEmpty()) {
             Pair p = queue.poll();
             int[] ith = {0, -1, 0, 1};
             int[] jth = {1, 0, -1, 0};
+            timeTaken = Integer.max(timeTaken, p.time);
             for (int k = 0; k < ith.length; k++) {
-                if (p.i + ith[k] < 0 || p.i + ith[k] >= arr.length || p.j + jth[k] < 0 || p.j + jth[k] >= arr[0].length || vis[p.i + ith[k]][p.j + jth[k]] == 2)
+                if (p.i + ith[k] < 0 || p.i + ith[k] >= arr.length || p.j + jth[k] < 0 || p.j + jth[k] >= arr[0].length || vis[p.i + ith[k]][p.j + jth[k]] == 2 || vis[p.i + ith[k]][p.j + jth[k]] == 0)
                     continue;
                 vis[p.i + ith[k]][p.j + jth[k]] = 2;
                 queue.add(new Pair(arr[p.i + ith[k]][p.j + jth[k]], p.time + 1, p.i + ith[k], p.j + jth[k]));
             }
-
         }
-
 
         return timeTaken;
     }
