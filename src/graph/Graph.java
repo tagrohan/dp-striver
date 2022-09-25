@@ -37,7 +37,6 @@ public class Graph {
         ad.add(List.of(1, 6));
         ad.add(List.of(4, 5));
 
-        System.out.println(ad.size() + " size()" );
         System.out.println(findConnectedNodes(ad));
 
     }
@@ -51,12 +50,17 @@ public class Graph {
         while (!queue.isEmpty()) {
             Pair pair = queue.poll();
             for (int i : adl.get(pair.first)) {
-                if (vis[i]) {
-                    if (i != pair.second) return true;
-                    continue;
-                }
-                vis[i] = true;
-                queue.add(new Pair(i, pair.first));
+//                if (vis[i]) {       // there are two ways both are there
+//                    if (i != pair.second) return true;
+//                    continue;
+//                }
+//                vis[i] = true;
+//                queue.add(new Pair(i, pair.first));
+
+                if (!vis[i]) {
+                    vis[i] = true;
+                    queue.add(new Pair(i, pair.first));
+                } else if (i != pair.second) return true;
             }
         }
         return false;
