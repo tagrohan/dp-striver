@@ -5,8 +5,8 @@ import java.util.*;
 public class Graph {
 
     public static class Pair {
-        public int first;
-        public int second;
+        public int first; // val
+        public int second; // prev, parent
         public int i;
         public int j;
 
@@ -26,9 +26,6 @@ public class Graph {
     public static void main(String[] args) {
 
         List<List<Integer>> ad = new ArrayList<>();
-//        for (int i = 0; i < 7; i++) {
-//            ad.add(new ArrayList<>());
-//        }
         ad.add(List.of());
         ad.add(List.of(2, 5));
         ad.add(List.of(1, 3, 4));
@@ -37,11 +34,45 @@ public class Graph {
         ad.add(List.of(1, 6));
         ad.add(List.of(4, 5));
 
-        System.out.println(findConnectedNodes(ad));
+        System.out.println(findConnectedNodesDFS(ad));
 
     }
 
-    private static boolean findConnectedNodes(List<List<Integer>> adl) {
+    private static boolean findConnectedNodesDFS(List<List<Integer>> adl) {
+
+
+//        List<List<Integer>> ad = new ArrayList<>();
+//        ad.add(List.of());
+//        ad.add(List.of(2, 5));
+//        ad.add(List.of(1, 3, 4));
+//        ad.add(List.of(2));
+//        ad.add(List.of(2, 6));
+//        ad.add(List.of(1, 6));
+//        ad.add(List.of(4, 5));
+//
+//        System.out.println(findConnectedNodesDFS(ad));
+
+        Stack<Pair> stack = new Stack<>();
+        boolean[] vis = new boolean[adl.size()];
+        vis[1] = true;
+        stack.push(new Pair(1, -1));
+
+        while (!stack.isEmpty()) {
+            Pair p = stack.pop();
+            for (int i : adl.get(p.first)) {
+                if (vis[i]) {
+                    if (p.second != i) return true;
+                    continue;
+                }
+                vis[i] = true;
+                stack.push(new Pair(i, p.first));
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean findConnectedNodesBFS(List<List<Integer>> adl) {
         Queue<Pair> queue = new ArrayDeque<>();
         boolean[] vis = new boolean[adl.size()];
         vis[1] = true;
