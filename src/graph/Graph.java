@@ -21,24 +21,89 @@ public class Graph {
             this.first = first;
             this.second = second;
         }
+
+
+        public Pair(int first, int i, int j) { // for distanceOfNearestMatrix
+            this.first = first;
+            this.i = i;
+            this.j = j;
+        }
     }
 
     public static void main(String[] args) {
 
-        List<List<Integer>> ad = new ArrayList<>();
-        ad.add(List.of());
-        ad.add(List.of(2, 5));
-        ad.add(List.of(1, 3, 4));
-        ad.add(List.of(2));
-        ad.add(List.of(2, 6));
-        ad.add(List.of(1, 6));
-        ad.add(List.of(4, 5));
+        int[][] arr = {
+                {0, 0, 0},
+                {0, 1, 0},
+                {1, 0, 1}};
 
-        System.out.println(findConnectedNodesDFS(ad));
+        int[][] arr2 = {
+                {0},
+                {0},
+                {0},
+                {0},
+                {0}};
 
+        for (int[] a : distanceOfNearestMatrix(arr2)) System.out.println(Arrays.toString(a));
+    }
+
+
+    private static int[][] distanceOfNearestMatrix(int[][] grid) {
+
+//        int[][] arr = {
+//                {0, 0, 0},
+//                {0, 1, 0},
+//                {1, 0, 1}};
+//
+//        int[][] arr2 = {
+//                {0},
+//                {0},
+//                {0},
+//                {0},
+//                {0}};
+//
+//        for (int[] a : distanceOfNearestMatrix(arr2)) System.out.println(Arrays.toString(a));
+
+        Queue<Pair> queue = new ArrayDeque<>(); // p.first = steps
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int[][] modified = new int[grid.length][grid[0].length];
+//        System.arraycopy(grid, 0, arr, 0, grid.length); // making a hard copy
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                modified[i][j] = grid[i][j];
+                if (grid[i][j] == 1) {
+                    queue.add(new Pair(0, i, j));
+                    visited[i][j] = true;
+                    grid[i][j] = 0;
+                }
+            }
+        }
+        while (!queue.isEmpty()) {
+            Pair pair = queue.poll();  //(0,1,1)
+
+            int[] ith = {0, 1, 0, -1};
+            int[] jth = {1, 0, -1, 0};
+            for (int i = 0; i < ith.length; i++) {
+                int row = pair.i + ith[i]; // 0
+                int col = pair.j + jth[i]; // 1
+                if (row < 0 || row >= modified.length || col < 0 || col >= modified[row].length || visited[row][col])
+                    continue;
+                visited[row][col] = true;
+                modified[row][col] = pair.first + 1;
+                queue.add(new Pair(pair.first + 1, row, col));
+            }
+        }
+        return modified;
     }
 
     private static boolean findConnectedNodesDFS(List<List<Integer>> adl) {
+
+        //        System.out.println(findConnectedNodesDFS(ad)); // for connected component
+//        for (int i = 1; i < 7; i++) {
+//            if (!vis[i]) {
+//                if (findConnectedNodesDFS(ad));
+//            }
+//        }
 
 
 //        List<List<Integer>> ad = new ArrayList<>();
