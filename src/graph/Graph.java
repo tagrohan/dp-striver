@@ -5,53 +5,93 @@ import java.util.*;
 public class Graph {
 
     public static class Pair {
-        public int val;
-        public int time;
+        public int first;
+        public int second;
         public int i;
         public int j;
 
-        public Pair(int val, int time, int i, int j) {
-            this.val = val;
-            this.time = time;
+        public Pair(int first, int second, int i, int j) {
+            this.first = first;
+            this.second = second;
             this.i = i;
             this.j = j;
         }
 
-        public Pair() {
+        public Pair(int first, int second) {
+            this.first = first;
+            this.second = second;
         }
     }
 
     public static void main(String[] args) {
-        int[][] arr = {
-                {2, 1, 1},
-                {1, 1, 0},
-                {0, 1, 1}};
-        System.out.println(rottenOranges(arr, 0, 0));
+
+        List<List<Integer>> ad = new ArrayList<>();
+//        for (int i = 0; i < 7; i++) {
+//            ad.add(new ArrayList<>());
+//        }
+        ad.add(List.of());
+        ad.add(List.of(2, 5));
+        ad.add(List.of(1, 3, 4));
+        ad.add(List.of(2));
+        ad.add(List.of(2, 6));
+        ad.add(List.of(1, 6));
+        ad.add(List.of(4, 5));
+
+        System.out.println(ad.size() + " size()" );
+        System.out.println(findConnectedNodes(ad));
+
+    }
+
+    private static boolean findConnectedNodes(List<List<Integer>> adl) {
+        Queue<Pair> queue = new ArrayDeque<>();
+        boolean[] vis = new boolean[adl.size()];
+        vis[1] = true;
+        queue.add(new Pair(1, -1));
+
+        while (!queue.isEmpty()) {
+            Pair pair = queue.poll();
+            for (int i : adl.get(pair.first)) {
+                if (vis[i]) {
+                    if (i != pair.second) return true;
+                    continue;
+                }
+                vis[i] = true;
+                queue.add(new Pair(i, pair.first));
+            }
+        }
+        return false;
     }
 
 
     private static int rottenOranges(int[][] arr, int i, int j) { // in case of multiple 2's we can pass them initially
+//        int[][] arr = {
+//                {2, 1, 1},
+//                {1, 1, 0},
+//                {0, 1, 1}};
+//        System.out.println(rottenOranges(arr, 0, 0));
+
         int timeTaken = 0;                                                                          //{2, 1, 1},
         int[][] vis = new int[arr.length][arr[0].length];                                           //{1, 1, 0}
         System.arraycopy(arr, 0, vis, 0, arr.length);                                // {0, 2, 1}};
-        Queue<Pair> queue = getFilledQueue(arr);
+        Queue<Pair> queue = getQueue(arr);
         while (!queue.isEmpty()) {
             Pair p = queue.poll();
             int[] ith = {0, -1, 0, 1};
             int[] jth = {1, 0, -1, 0};
-            timeTaken = Integer.max(timeTaken, p.time);
+            timeTaken = Integer.max(timeTaken, p.second); // second represent time here
             for (int k = 0; k < ith.length; k++) {
-                if (p.i + ith[k] < 0 || p.i + ith[k] >= arr.length || p.j + jth[k] < 0 || p.j + jth[k] >= arr[0].length || vis[p.i + ith[k]][p.j + jth[k]] == 2 || vis[p.i + ith[k]][p.j + jth[k]] == 0)
+                if (p.i + ith[k] < 0 || p.i + ith[k] >= arr.length || p.j + jth[k] < 0 || p.j + jth[k] >= arr[0].length ||
+                        vis[p.i + ith[k]][p.j + jth[k]] == 2 || vis[p.i + ith[k]][p.j + jth[k]] == 0)
                     continue;
                 vis[p.i + ith[k]][p.j + jth[k]] = 2;
-                queue.add(new Pair(arr[p.i + ith[k]][p.j + jth[k]], p.time + 1, p.i + ith[k], p.j + jth[k]));
+                queue.add(new Pair(arr[p.i + ith[k]][p.j + jth[k]], p.second + 1, p.i + ith[k], p.j + jth[k]));
             }
         }
 
         return timeTaken;
     }
 
-    private static Queue<Pair> getFilledQueue(int[][] arr) {
+    private static Queue<Pair> getQueue(int[][] arr) {
         Queue<Pair> queue = new ArrayDeque<>();
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
