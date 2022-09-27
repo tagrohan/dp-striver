@@ -1,5 +1,6 @@
 package graph;
 
+import java.security.PrivilegedAction;
 import java.util.*;
 
 public class Graph {
@@ -37,14 +38,12 @@ public class Graph {
                 {0, 1, 0},
                 {1, 0, 1}};
 
-        int[][] arr2 = {
-                {0},
-                {0},
-                {0},
-                {0},
-                {0}};
 
-        for (int[] a : distanceOfNearestMatrix(arr2)) System.out.println(Arrays.toString(a));
+    }
+
+    private static int[][] replaceOSurroundedByX(int[][] arr) {
+
+
     }
 
 
@@ -96,7 +95,7 @@ public class Graph {
         return modified;
     }
 
-    private static boolean findConnectedNodesDFS(List<List<Integer>> adl) {
+    private static boolean findConnectedNodesDFS(List<List<Integer>> adl) { // cycle
 
         //        System.out.println(findConnectedNodesDFS(ad)); // for connected component
 //        for (int i = 1; i < 7; i++) {
