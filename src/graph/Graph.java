@@ -43,17 +43,48 @@ public class Graph {
                 {0, 1, 1, 0},
                 {0, 0, 0, 0}};
 
-        System.out.println(noOf1nsInsideBoundary(arr));
+        System.out.println(noOf1nsInsideBoundaryQueue(arr));
     }
 
-//    private static int noOf1nsInsideBoundaryQueue(int[][] arr) {
-//        Queue<Pair> queue = new ArrayDeque<>();
-//        for (int i = 0; i < arr.length; i++) {
-//            if (arr[0][i] == 1 || arr[arr[0].length - 1][i] == 1) { // row
-//
-//            }
-//        }
-//    }
+    private static int noOf1nsInsideBoundaryQueue(int[][] arr) {
+        Queue<Pair> queue = new ArrayDeque<>();
+        boolean[][] visited = new boolean[arr.length][arr[0].length];
+        int noOf1ns = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if (i == 0 || j == 0 || i == arr.length - 1 || j == arr[0].length - 1) {
+                    if (arr[i][j] == 1) {
+                        queue.add(new Pair(i, j));
+                        visited[i][j] = true;
+                    }
+
+                }
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            Pair pair = queue.poll();
+
+            int[] ith = {0, 1, 0, -1};
+            int[] jth = {1, 0, -1, 0};
+            for (int i = 0; i < ith.length; i++) {
+                int row = pair.i + ith[i];
+                int col = pair.j + jth[i];
+                if (row < 0 || col < 0 || row == arr.length || col == arr[0].length || visited[row][col] || arr[row][col] == 0)
+                    continue;
+                queue.add(new Pair(row, col));
+                visited[row][col] = true;
+            }
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (!visited[i][j] && arr[i][j] == 1) noOf1ns += 1;
+            }
+        }
+        return noOf1ns;
+    }
 
     private static int noOf1nsInsideBoundary(int[][] arr) {
 
@@ -79,7 +110,7 @@ public class Graph {
             if (arr[i][0] == 1 && !visited[i][0]) { // first col
                 dfsForNoOf1nsInsideBoundary(arr, visited, i, 0);
             }
-            if (arr[i][arr[0].length - 1] == 1 && !visited[arr.length - 1][i]) { // last col
+            if (arr[i][arr[0].length - 1] == 1 && !visited[arr[0].length - 1][i]) { // last col
                 dfsForNoOf1nsInsideBoundary(arr, visited, i, arr[0].length - 1);
             }
         }
