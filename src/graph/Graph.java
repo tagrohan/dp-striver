@@ -17,14 +17,19 @@ public class Graph {
             this.j = j;
         }
 
-        public Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
-        }
+//        public Pair(int first, int second) {
+//            this.first = first;
+//            this.second = second;
+//        }
 
 
         public Pair(int first, int i, int j) { // for distanceOfNearestMatrix
             this.first = first;
+            this.i = i;
+            this.j = j;
+        }
+
+        public Pair(int i, int j) { // for distanceOfNearestMatrix
             this.i = i;
             this.j = j;
         }
@@ -33,13 +38,22 @@ public class Graph {
     public static void main(String[] args) {
 
         int[][] arr = {
-                {1, 0, 0, 1},
+                {0, 0, 0, 0},
                 {0, 1, 1, 0},
                 {0, 1, 1, 0},
-                {1, 0, 0, 1}};
+                {0, 0, 0, 0}};
 
         System.out.println(noOf1nsInsideBoundary(arr));
     }
+
+//    private static int noOf1nsInsideBoundaryQueue(int[][] arr) {
+//        Queue<Pair> queue = new ArrayDeque<>();
+//        for (int i = 0; i < arr.length; i++) {
+//            if (arr[0][i] == 1 || arr[arr[0].length - 1][i] == 1) { // row
+//
+//            }
+//        }
+//    }
 
     private static int noOf1nsInsideBoundary(int[][] arr) {
 
@@ -53,12 +67,20 @@ public class Graph {
 
         int noOf1ns = 0;
         boolean[][] visited = new boolean[arr.length][arr[0].length];
-        for (int i = 0; i < arr[0].length; i++) {
-            if (arr[0][i] == 1) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[0][i] == 1 && !visited[0][i]) { // first row
                 dfsForNoOf1nsInsideBoundary(arr, visited, 0, i);
             }
-            if (arr[arr.length - 1][i] == 1) {
+            if (arr[arr.length - 1][i] == 1 && !visited[arr.length - 1][i]) { // last row
                 dfsForNoOf1nsInsideBoundary(arr, visited, arr.length - 1, i);
+            }
+        }
+        for (int i = 0; i < arr[0].length; i++) {
+            if (arr[i][0] == 1 && !visited[i][0]) { // first col
+                dfsForNoOf1nsInsideBoundary(arr, visited, i, 0);
+            }
+            if (arr[i][arr[0].length - 1] == 1 && !visited[arr.length - 1][i]) { // last col
+                dfsForNoOf1nsInsideBoundary(arr, visited, i, arr[0].length - 1);
             }
         }
         for (int i = 0; i < arr.length; i++) {
@@ -97,14 +119,24 @@ public class Graph {
 
         boolean[][] visited = new boolean[arr.length][arr[0].length];
 
-        for (int i = 0; i < arr[0].length; i++) {
+        for (int i = 0; i < arr.length; i++) { // first row
             if (arr[0][i] == 'o' && !visited[0][i]) {
                 dfsForReplaceOToX(arr, visited, 0, i);
             }
-            if (arr[arr.length - 1][i] == 'o' && !visited[arr.length - 1][i]) {
+            if (arr[arr.length - 1][i] == 'o' && !visited[arr.length - 1][i]) { // last row
                 dfsForReplaceOToX(arr, visited, arr.length - 1, i);
             }
         }
+
+        for (int i = 0; i < arr[0].length; i++) { // first col
+            if (arr[i][0] == 'o' && !visited[i][0]) {
+                dfsForReplaceOToX(arr, visited, i, 0);
+            }
+            if (arr[i][arr[0].length - 1] == 'o' && !visited[i][arr[0].length - 1]) { // last col
+                dfsForReplaceOToX(arr, visited, i, arr[0].length - 1);
+            }
+        }
+
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
                 if (!visited[i][j] && arr[i][j] == 'o') arr[i][j] = 'x';
