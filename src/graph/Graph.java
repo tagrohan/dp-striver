@@ -43,7 +43,7 @@ public class Graph {
                 {0, 1, 1, 0},
                 {0, 0, 0, 0}};
 
-        System.out.println(noOf1nsInsideBoundaryQueue(arr));
+        System.out.println(noOf1nsInsideBoundary(arr));
     }
 
     private static int noOf1nsInsideBoundaryQueue(int[][] arr) {
@@ -98,22 +98,32 @@ public class Graph {
 
         int noOf1ns = 0;
         boolean[][] visited = new boolean[arr.length][arr[0].length];
+
         for (int i = 0; i < arr.length; i++) {
-            if (arr[0][i] == 1 && !visited[0][i]) { // first row
-                dfsForNoOf1nsInsideBoundary(arr, visited, 0, i);
-            }
-            if (arr[arr.length - 1][i] == 1 && !visited[arr.length - 1][i]) { // last row
-                dfsForNoOf1nsInsideBoundary(arr, visited, arr.length - 1, i);
-            }
-        }
-        for (int i = 0; i < arr[0].length; i++) {
-            if (arr[i][0] == 1 && !visited[i][0]) { // first col
-                dfsForNoOf1nsInsideBoundary(arr, visited, i, 0);
-            }
-            if (arr[i][arr[0].length - 1] == 1 && !visited[arr[0].length - 1][i]) { // last col
-                dfsForNoOf1nsInsideBoundary(arr, visited, i, arr[0].length - 1);
+            for (int j = 0; j < arr[0].length; j++) {
+                if (i == 0 || j == 0 || i == arr.length - 1 || j == arr[0].length - 1) {
+                    dfsForNoOf1nsInsideBoundary(arr, visited, i, j);
+                }
             }
         }
+
+
+//        for (int i = 0; i < arr.length; i++) {
+//            if (arr[0][i] == 1 && !visited[0][i]) { // first row
+//                dfsForNoOf1nsInsideBoundary(arr, visited, 0, i);
+//            }
+//            if (arr[arr.length - 1][i] == 1 && !visited[arr.length - 1][i]) { // last row
+//                dfsForNoOf1nsInsideBoundary(arr, visited, arr.length - 1, i);
+//            }
+//        }
+//        for (int i = 0; i < arr[0].length; i++) {
+//            if (arr[i][0] == 1 && !visited[i][0]) { // first col
+//                dfsForNoOf1nsInsideBoundary(arr, visited, i, 0);
+//            }
+//            if (arr[i][arr[0].length - 1] == 1 && !visited[arr[0].length - 1][i]) { // last col
+//                dfsForNoOf1nsInsideBoundary(arr, visited, i, arr[0].length - 1);
+//            }
+//        }
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
                 if (!visited[i][j] && arr[i][j] == 1) noOf1ns += 1;
