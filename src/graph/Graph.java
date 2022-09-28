@@ -33,16 +33,47 @@ public class Graph {
 
     public static void main(String[] args) {
 
-        int[][] arr = {
-                {0, 0, 0},
-                {0, 1, 0},
-                {1, 0, 1}};
+        char[][] arr = {
+                {'x', 'x', 'x', 'x'},
+                {'x', 'o', 'o', 'x'},
+                {'x', 'o', 'x', 'o'},
+                {'x', 'x', 'o', 'o'},};
 
-
+        for (char[] ch : replaceOSurroundedByX(arr)) {
+            System.out.println(Arrays.toString(ch));
+        }
     }
 
-    private static int[][] replaceOSurroundedByX(int[][] arr) {
+    private static char[][] replaceOSurroundedByX(char[][] arr) {
 
+        boolean[][] visited = new boolean[arr.length][arr[0].length];
+
+        for (int i = 0; i < arr[0].length; i++) {
+            if (arr[0][i] == 'o' && !visited[0][i]) {
+                dfsForReplaceOToX(arr, visited, 0, i);
+            }
+            if (arr[arr.length - 1][i] == 'o' && !visited[arr.length - 1][i]) {
+                dfsForReplaceOToX(arr, visited, arr.length - 1, i);
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (!visited[i][j] && arr[i][j] == 'o') arr[i][j] = 'x';
+            }
+        }
+        return arr;
+    }
+
+    private static void dfsForReplaceOToX(char[][] arr, boolean[][] visited, int i, int j) {
+
+        if (i < 0 || j < 0 || i >= arr.length || j >= arr[i].length || visited[i][j] || arr[i][j] == 'x') return;
+
+        if (arr[i][j] == 'o') visited[i][j] = true;
+
+        dfsForReplaceOToX(arr, visited, i, j + 1);
+        dfsForReplaceOToX(arr, visited, i + 1, j);
+        dfsForReplaceOToX(arr, visited, i, j - 1);
+        dfsForReplaceOToX(arr, visited, i - 1, j);
 
     }
 
