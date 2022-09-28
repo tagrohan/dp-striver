@@ -1,6 +1,5 @@
 package graph;
 
-import java.security.PrivilegedAction;
 import java.util.*;
 
 public class Graph {
@@ -33,18 +32,68 @@ public class Graph {
 
     public static void main(String[] args) {
 
-        char[][] arr = {
-                {'x', 'x', 'x', 'x'},
-                {'x', 'o', 'o', 'x'},
-                {'x', 'o', 'x', 'o'},
-                {'x', 'x', 'o', 'o'},};
+        int[][] arr = {
+                {1, 0, 0, 1},
+                {0, 1, 1, 0},
+                {0, 1, 1, 0},
+                {1, 0, 0, 1}};
 
-        for (char[] ch : replaceOSurroundedByX(arr)) {
-            System.out.println(Arrays.toString(ch));
+        System.out.println(noOf1nsInsideBoundary(arr));
+    }
+
+    private static int noOf1nsInsideBoundary(int[][] arr) {
+
+//        int[][] arr = {
+//                {1, 0, 0, 1},
+//                {0, 1, 1, 0},
+//                {0, 1, 1, 0},
+//                {1, 0, 0, 1}};
+//
+//        System.out.println(noOf1nsInsideBoundary(arr));
+
+        int noOf1ns = 0;
+        boolean[][] visited = new boolean[arr.length][arr[0].length];
+        for (int i = 0; i < arr[0].length; i++) {
+            if (arr[0][i] == 1) {
+                dfsForNoOf1nsInsideBoundary(arr, visited, 0, i);
+            }
+            if (arr[arr.length - 1][i] == 1) {
+                dfsForNoOf1nsInsideBoundary(arr, visited, arr.length - 1, i);
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (!visited[i][j] && arr[i][j] == 1) noOf1ns += 1;
+            }
+        }
+
+        return noOf1ns;
+    }
+
+    private static void dfsForNoOf1nsInsideBoundary(int[][] arr, boolean[][] visited, int i, int j) {
+
+        if (i < 0 || j < 0 || i >= arr.length || j >= arr[i].length || visited[i][j] || arr[i][j] == 0) return;
+
+        if (arr[i][j] == 1) visited[i][j] = true;
+
+        int[] ith = {0, 1, 0, -1};
+        int[] jth = {1, 0, -1, 0};
+        for (int k = 0; k < ith.length; k++) {
+            dfsForNoOf1nsInsideBoundary(arr, visited, ith[k] + i, jth[k] + j);
         }
     }
 
     private static char[][] replaceOSurroundedByX(char[][] arr) {
+
+//        char[][] arr = {
+//                {'x', 'x', 'x', 'x'},
+//                {'x', 'o', 'o', 'x'},
+//                {'x', 'o', 'x', 'o'},
+//                {'x', 'x', 'o', 'o'}};
+//
+//        for (char[] ch : replaceOSurroundedByX(arr)) {
+//            System.out.println(Arrays.toString(ch));
+//        }
 
         boolean[][] visited = new boolean[arr.length][arr[0].length];
 
