@@ -38,12 +38,99 @@ public class Graph {
     public static void main(String[] args) {
 
         int[][] arr = {
-                {0, 0, 0, 0},
-                {0, 1, 1, 0},
-                {0, 1, 1, 0},
-                {0, 0, 0, 0}};
+                {1, 2, 3},
+                {0, 2},
+                {0, 1, 3},
+                {0, 2}};
 
-        System.out.println(noOf1nsInsideBoundary(arr));
+        int[][] arr2 = {
+                {1, 3},
+                {0, 2},
+                {1, 3},
+                {0, 2},
+                {3}
+        };
+
+        System.out.println(isGraphBipartite(arr, 5, 0));
+    }
+
+    private static boolean isGraphBipartite(int[][] arr, int noOfNodes, int startingIndex) { // adj list in form of matrix
+        int[] colour = new int[noOfNodes]; // -1, 1 -> for bipartite
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.add(startingIndex);
+        colour[startingIndex] = -1;
+        while (!queue.isEmpty()) {
+            int index = queue.poll();
+            for (int it : arr[index]) {
+                if (colour[it] != 0) {
+                    if (colour[it] == colour[index]) return false;
+                    continue;
+                }
+                colour[it] = -1 * colour[index];
+                queue.add(it);
+            }
+        }
+        return true;
+    }
+
+
+    static int countDistinctIslands(int[][] grid) { // todo : better to go with this approach
+
+//        int[][] arr = {
+//                {1, 1, 0, 0}, // orbdb
+//                {1, 0, 0, 0},
+//                {0, 0, 1, 1}, // ordbb
+//                {0, 0, 0, 1}};
+//
+//        System.out.println(countDistinctIslands(arr));
+        Set<String> distinct = new HashSet<>();
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    distinct.add(layout(i, j, grid));
+                }
+            }
+        }
+        return distinct.size();
+    }
+
+    static String layout(int i, int j, int[][] grid) {
+
+        int[] R = {0, 0, 1, -1};
+        int[] C = {1, -1, 0, 0};
+        int[] D = {1, 2, 3, 4};
+
+        StringBuilder sb = new StringBuilder();
+        Queue<int[]> queue = new LinkedList<>();
+        int size;
+        int[] current;
+        int nR;
+        int nC;
+
+        queue.add(new int[]{i, j});
+        while (!queue.isEmpty()) {
+            size = queue.size();
+            while (size != 0) {
+                size--;
+                current = queue.poll();
+                for (int k = 0; k < R.length; k++) {
+                    nR = current[0] + R[k];
+                    nC = current[1] + C[k];
+                    if (nR < 0 || nR == grid.length || nC < 0 ||
+                            nC == grid[0].length || grid[nR][nC] != 1) {
+                        sb.append(0);
+                        continue;
+                    }
+                    if (grid[nR][nC] == 1) {
+                        queue.add(new int[]{nR, nC});
+                        grid[nR][nC] = 2; // modifying grid here
+                        sb.append(D[k]);
+                    }
+                }
+            }
+        }
+        return sb.toString();
+
     }
 
     private static int noOf1nsInsideBoundaryQueue(int[][] arr) {
@@ -54,7 +141,7 @@ public class Graph {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[0].length; j++) {
                 if (i == 0 || j == 0 || i == arr.length - 1 || j == arr[0].length - 1) {
-                    if (arr[i][j] == 1) {
+                    if (arr[i][j] == 1 && !visited[i][j]) {
                         queue.add(new Pair(i, j));
                         visited[i][j] = true;
                     }
@@ -102,7 +189,9 @@ public class Graph {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[0].length; j++) {
                 if (i == 0 || j == 0 || i == arr.length - 1 || j == arr[0].length - 1) {
-                    dfsForNoOf1nsInsideBoundary(arr, visited, i, j);
+                    if (!visited[i][j] && arr[i][j] == 1) {
+                        dfsForNoOf1nsInsideBoundary(arr, visited, i, j);
+                    }
                 }
             }
         }
