@@ -37,24 +37,29 @@ public class Graph {
 
     public static void main(String[] args) {
 
-        int[][] arr = {
-                {1, 2, 3},
-                {0, 2},
-                {0, 1, 3},
-                {0, 2}};
 
-        int[][] arr2 = {
-                {1, 3},
-                {0, 2},
-                {1, 3},
-                {0, 2},
-                {3}
-        };
 
-        System.out.println(isGraphBipartiteDFS(arr2, 5, 0));
     }
 
+
+
     private static boolean isGraphBipartiteDFS(int[][] arr, int noOfNodes, int startingIndex) {
+//
+//        int[][] arr = {
+//                {1, 2, 3},
+//                {0, 2},
+//                {0, 1, 3},
+//                {0, 2}};
+//
+//        int[][] arr2 = {
+//                {1, 3},
+//                {0, 2},
+//                {1, 3},
+//                {0, 2},
+//                {3}
+//        };
+//
+//        System.out.println(isGraphBipartiteDFS(arr2, 5, 0));
         Stack<Integer> stack = new Stack<>();
         int[] color = new int[noOfNodes];
         stack.push(startingIndex);
@@ -257,7 +262,60 @@ public class Graph {
         }
     }
 
-    private static char[][] replaceOSurroundedByX(char[][] arr) {
+    public static int noOfClosedIslands(int[][] arr) {
+
+//        int[][] arr = {
+//
+//                {1, 1, 1, 1, 1, 1, 1, 0},
+//                {1, 0, 0, 0, 0, 1, 1, 0},
+//                {1, 0, 1, 0, 1, 1, 1, 0},
+//                {1, 0, 0, 0, 0, 1, 0, 1},
+//                {1, 1, 1, 1, 1, 1, 1, 0}
+//        };
+//        System.out.println(noOfClosedIslands(arr));
+
+        boolean[][] visited = new boolean[arr.length][arr[0].length];
+        int noOfIsland = 0;
+        for (int i = 0; i < arr[0].length; i++) { // first row
+            if (arr[0][i] == 0 && !visited[0][i]) {
+                noOfIsland += 1;
+                dfsForReplaceOToX(arr, visited, 0, i);
+            }
+            if (arr[arr.length - 1][i] == 0 && !visited[arr.length - 1][i]) { // last row
+                noOfIsland += 1;
+                dfsForReplaceOToX(arr, visited, arr.length - 1, i);
+            }
+        }
+
+        for (int i = 0; i < arr.length; i++) { // first col
+            if (arr[i][0] == 0 && !visited[i][0]) {
+                noOfIsland += 1;
+                dfsForReplaceOToX(arr, visited, i, 0);
+            }
+            if (arr[i][arr[0].length - 1] == 0 && !visited[i][arr[0].length - 1]) { // last col
+                noOfIsland += 1;
+                dfsForReplaceOToX(arr, visited, i, arr[0].length - 1);
+            }
+        }
+
+        return noOfIsland;
+    }
+
+
+    private static void dfsForReplaceOToX(int[][] arr, boolean[][] visited, int i, int j) {
+
+        if (i < 0 || j < 0 || i >= arr.length || j >= arr[i].length || visited[i][j] || arr[i][j] == 1) return;
+
+        if (arr[i][j] == 0) visited[i][j] = true;
+
+        dfsForReplaceOToX(arr, visited, i, j + 1);
+        dfsForReplaceOToX(arr, visited, i + 1, j);
+        dfsForReplaceOToX(arr, visited, i, j - 1);
+        dfsForReplaceOToX(arr, visited, i - 1, j);
+
+    }
+
+    private static char[][] replaceOSurroundedByX(char[][] arr) { // todo : it has some fault check above
 
 //        char[][] arr = {
 //                {'x', 'x', 'x', 'x'},
