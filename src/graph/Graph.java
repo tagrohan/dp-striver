@@ -51,8 +51,30 @@ public class Graph {
                 {3}
         };
 
-        System.out.println(isGraphBipartite(arr, 5, 0));
+        System.out.println(isGraphBipartiteDFS(arr2, 5, 0));
     }
+
+    private static boolean isGraphBipartiteDFS(int[][] arr, int noOfNodes, int startingIndex) {
+        Stack<Integer> stack = new Stack<>();
+        int[] color = new int[noOfNodes];
+        stack.push(startingIndex);
+        color[startingIndex] = -1; // 0,-1,1
+
+        while (!stack.isEmpty()) {
+            int index = stack.pop();
+            for (int it : arr[index]) {
+                if (color[it] != 0) {
+                    if (color[it] == color[index]) return false;
+                    continue;
+                }
+                color[it] = -1 * color[index];
+                stack.push(it);
+            }
+        }
+
+        return true;
+    }
+
 
     private static boolean isGraphBipartite(int[][] arr, int noOfNodes, int startingIndex) { // adj list in form of matrix
         int[] colour = new int[noOfNodes]; // -1, 1 -> for bipartite
