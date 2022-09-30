@@ -36,11 +36,71 @@ public class Graph {
     }
 
     public static void main(String[] args) {
+        int[][] arr = {
+                {1, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 1, 0}, {1, 0, 1, 0, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 0}};
 
+        System.out.println(noOf1nsInsideBoundaryV2(arr));
 
 
     }
 
+    private static int noOf1nsInsideBoundaryV2(int[][] arr) {
+
+
+        int noOf1ns = 0;
+        boolean[][] visited = new boolean[arr.length][arr[0].length];
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if (i == 0 || j == 0 || i == arr.length - 1 || j == arr[0].length - 1) {
+                    if (!visited[i][j] && arr[i][j] == 0) {
+                        dfsForNoOf1nsInsideBoundaryV2(arr, visited, i, j);
+                    }
+                }
+            }
+        }
+
+        for (int[] in : arr) {
+            System.out.println(Arrays.toString(in));
+        }
+
+        visited = new boolean[arr.length][arr[0].length];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] == 0 && !visited[i][j]) {
+                    noOf1ns += 1;
+                    dfsForIslandV2(visited, arr, i, j);
+                }
+            }
+        }
+
+        return noOf1ns;
+    }
+
+    private static void dfsForIslandV2(boolean[][] visited, int[][] arr, int i, int j) {
+        if (i >= arr.length || i < 0 || j >= arr[i].length || j < 0 || visited[i][j] || arr[i][j] == 1) return;
+
+        visited[i][j] = true;
+
+        int[] ith = {0, 1, 0, -1};
+        int[] jth = {1, 0, -1, 0};
+
+        for (int k = 0; k < 4; k++) dfsForIslandV2(visited, arr, i + ith[k], j + jth[k]);
+
+    }
+
+    private static void dfsForNoOf1nsInsideBoundaryV2(int[][] arr, boolean[][] visited, int i, int j) {
+
+        if (i < 0 || j < 0 || i >= arr.length || j >= arr[i].length || visited[i][j] || arr[i][j] == 1) return;
+
+        if (arr[i][j] == 0) visited[i][j] = true;
+
+        int[] ith = {0, 1, 0, -1};
+        int[] jth = {1, 0, -1, 0};
+        for (int k = 0; k < ith.length; k++) {
+            dfsForNoOf1nsInsideBoundaryV2(arr, visited, ith[k] + i, jth[k] + j);
+        }
+    }
 
 
     private static boolean isGraphBipartiteDFS(int[][] arr, int noOfNodes, int startingIndex) {
