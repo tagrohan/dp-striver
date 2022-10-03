@@ -37,15 +37,55 @@ public class Graph {
 
     public static void main(String[] args) {
         int[][] arr = {
-                {1, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 1, 0}, {1, 0, 1, 0, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 0}};
+                {},
+                {2},
+                {3},
+                {4, 7},
+                {5},
+                {6},
+                {},
+                {5},
+                {2, 9},
+                {10},
+                {8}
+        };
+        System.out.println(detectCycleInDirectedGraph(arr));
+    }
 
-        System.out.println(noOf1nsInsideBoundaryV2(arr));
+    private static boolean detectCycleInDirectedGraph(int[][] arr) {
+        boolean[] visited = new boolean[arr.length];
+        boolean[] prevVisited = new boolean[arr.length];
+        for (int i = 1; i < arr.length; i++) {
+            if (!visited[i]) {
+                if (dfsForDirectedGraph(visited, prevVisited, arr, i)) return true;
+            }
+        }
+        return false;
+    }
 
+    private static boolean dfsForDirectedGraph(boolean[] visited, boolean[] prevVisited, int[][] arr, int i) {
 
+        visited[i] = true;
+        prevVisited[i] = true;
+
+        for (int index : arr[i]) {
+            if (visited[index]) {
+                if (prevVisited[index]) {
+                    return true;
+                }
+                continue;
+            }
+            if (dfsForDirectedGraph(visited, prevVisited, arr, index)) return true;
+        }
+        prevVisited[i] = false;
+        return false;
     }
 
     private static int noOf1nsInsideBoundaryV2(int[][] arr) {
-
+//        int[][] arr = {
+//                {1, 1, 1, 1, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 1, 0}, {1, 0, 1, 0, 1, 1, 1, 0}, {1, 0, 0, 0, 0, 1, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 0}};
+//
+//        System.out.println(noOf1nsInsideBoundaryV2(arr));
 
         int noOf1ns = 0;
         boolean[][] visited = new boolean[arr.length][arr[0].length];
