@@ -49,10 +49,28 @@ public class Graph {
                 {10},
                 {8}
         };
-        System.out.println(detectCycleInDirectedGraph(arr));
+
     }
 
+
+
     private static boolean detectCycleInDirectedGraph(int[][] arr) {
+
+//        int[][] arr = {
+//                {},
+//                {2},
+//                {3},
+//                {4, 7},
+//                {5},
+//                {6},
+//                {},
+//                {5},
+//                {2, 9},
+//                {10},
+//                {8}
+//        };
+//        System.out.println(detectCycleInDirectedGraph(arr));
+
         boolean[] visited = new boolean[arr.length];
         boolean[] prevVisited = new boolean[arr.length];
         for (int i = 1; i < arr.length; i++) {
@@ -72,7 +90,7 @@ public class Graph {
             if (visited[index]) {
                 if (prevVisited[index]) {
                     return true;
-                }
+            }
                 continue;
             }
             if (dfsForDirectedGraph(visited, prevVisited, arr, index)) return true;
