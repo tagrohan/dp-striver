@@ -48,7 +48,7 @@ public class Graph {
                 {2, 9},
                 {10},
                 {8}
-        };
+        }; // todo : directed graph start from here
 
     }
 
